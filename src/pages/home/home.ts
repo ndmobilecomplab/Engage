@@ -7,7 +7,9 @@ import {
   GoogleMapsAnimation,
   MyLocation
 } from '@ionic-native/google-maps';
-import { LoadingController, ToastController, Platform } from 'ionic-angular';
+import { LoadingController, ToastController, Platform, NavController } from 'ionic-angular';
+import { FirebaseAuthProvider } from '../../providers/firebase-auth/firebase-auth';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -19,13 +21,19 @@ export class HomePage {
   
   constructor(
     public loadingCtrl: LoadingController,
+    public navCtrl: NavController,
     public toastCtrl: ToastController,
-    private platform: Platform
+    private platform: Platform,
+    private firebaseAuth: FirebaseAuthProvider
   ) { }
   
   async ngOnInit() {
     // Since ngOnInit() is executed before `deviceready` event,
     // you have to wait the event.
+    if(!this.firebaseAuth.isSignedIn){
+      this.navCtrl.push(LoginPage);
+      return;
+    }
     await this.platform.ready();
     await this.loadMap();
   }
