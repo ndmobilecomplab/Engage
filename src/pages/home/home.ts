@@ -30,9 +30,12 @@ export class HomePage {
   async ngOnInit() {
     // Since ngOnInit() is executed before `deviceready` event,
     // you have to wait the event.
-    if(!this.firebaseAuth.isSignedIn){
+    this.firebaseAuth.user.subscribe((user) => {
+      console.log(user)
+      if(!user)
+        
       this.navCtrl.push(LoginPage);
-    }
+    });
     await this.platform.ready();
     await this.loadMap();
   }

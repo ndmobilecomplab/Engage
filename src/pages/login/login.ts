@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import { FirebaseAuthProvider } from '../../providers/firebase-auth/firebase-auth';
+import { LoginModal } from '../login-modal/login-modal';
 
 /**
 * Generated class for the LoginPage page.
@@ -16,7 +17,12 @@ import { FirebaseAuthProvider } from '../../providers/firebase-auth/firebase-aut
 })
 export class LoginPage {
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseAuth: FirebaseAuthProvider, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseAuth: FirebaseAuthProvider, public toastCtrl: ToastController, private modalCtrl: ModalController) {
+    firebaseAuth.user.subscribe((user) => {
+      if(user){
+        navCtrl.pop();
+      }
+    });
   }
   
   loginAnonymously(){
@@ -31,6 +37,15 @@ export class LoginPage {
         }).present();
       }
     });
+  }
+  
+  loginGoogle(){
+    this.firebaseAuth.signInWithGoogle();
+  }
+  
+  loginEmailPassword(){
+    let loginModal = this.modalCtrl.create(LoginModal);
+    loginModal.present();
   }
   
 }

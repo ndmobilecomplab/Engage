@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { Environment } from '@ionic-native/google-maps';
+import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +18,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private firebaseAuth: FirebaseAuthProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -45,5 +46,9 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  signOut(){
+    this.firebaseAuth.signOut();
   }
 }

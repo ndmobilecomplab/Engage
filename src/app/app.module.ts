@@ -11,13 +11,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { FirebaseConfigProvider } from '../providers/firebase-config/firebase-config';
 import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth';
 import { LoginPage } from '../pages/login/login';
+import { LoginModal } from '../pages/login-modal/login-modal';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    LoginModal
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { LoginPage } from '../pages/login/login';
     MyApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    LoginModal
   ],
   providers: [
     StatusBar,
