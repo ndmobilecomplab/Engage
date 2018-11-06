@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 
@@ -20,6 +19,12 @@ export class FirebaseConfigProvider {
     this.isInit = true;
     const config = {
       //FB CRED
+      apiKey: "G_API_KEY",
+      authDomain: "G_AUTH_DOMAIN",
+      databaseURL: "G_DATABASE_URL",
+      projectId: "G_PROJECT_ID",
+      storageBucket: "G_PROJECT_ID.appspot.com",
+      messagingSenderId: "G_MESSAGING_SENDER_ID"
       //END FB CRED
       // TODO: Replace with your project's customized code snippet
     };

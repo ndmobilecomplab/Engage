@@ -12,6 +12,8 @@ import { FirebaseConfigProvider } from '../providers/firebase-config/firebase-co
 import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth';
 import { LoginPage } from '../pages/login/login';
 import { LoginModal } from '../pages/login-modal/login-modal';
+import { FirebaseDatabaseProvider } from '../providers/firebase-database/firebase-database';
+import { GeofireProvider } from '../providers/geofire/geofire';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { LoginModal } from '../pages/login-modal/login-modal';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FirebaseConfigProvider,
-    FirebaseAuthProvider
+    FirebaseAuthProvider,
+    FirebaseDatabaseProvider,
+    GeofireProvider
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -34,8 +34,8 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       Environment.setEnv({
-        'API_KEY_FOR_BROWSER_RELEASE': 'GMAPS_API_KEY',
-        'API_KEY_FOR_BROWSER_DEBUG': 'GMAPS_API_KEY'
+        'API_KEY_FOR_BROWSER_RELEASE': 'G_API_KEY',
+        'API_KEY_FOR_BROWSER_DEBUG': 'G_API_KEY'
       });
       this.statusBar.styleDefault();
       this.splashScreen.hide();

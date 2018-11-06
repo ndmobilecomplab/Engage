@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   GoogleMaps,
   GoogleMap,
-  GoogleMapsEvent,
   Marker,
-  GoogleMapsAnimation,
   MyLocation
 } from '@ionic-native/google-maps';
 import { LoadingController, ToastController, Platform, NavController } from 'ionic-angular';
 import { FirebaseAuthProvider } from '../../providers/firebase-auth/firebase-auth';
 import { LoginPage } from '../login/login';
+import { GeofireProvider } from '../../providers/geofire/geofire';
+
+const startLong = -86.2379;
+const startLat = 41.7002;
 
 @Component({
   selector: 'page-home',
@@ -18,14 +20,17 @@ import { LoginPage } from '../login/login';
 export class HomePage {
   map: GoogleMap;
   loading: any;
+  markers: { [id: string]: Promise<any> };
   
   constructor(
     public loadingCtrl: LoadingController,
     public navCtrl: NavController,
     public toastCtrl: ToastController,
     private platform: Platform,
-    private firebaseAuth: FirebaseAuthProvider
-  ) { }
+    private firebaseAuth: FirebaseAuthProvider,
+    private geofire: GeofireProvider
+  ) {
+  }
   
   async ngOnInit() {
     // Since ngOnInit() is executed before `deviceready` event,
@@ -44,14 +49,14 @@ export class HomePage {
     this.map = GoogleMaps.create('map_canvas', {
       camera: {
         target: {
-          lat: 41.7002,
-          lng: -86.2379
+          lat: startLat,
+          lng: startLong
         },
-        zoom: 18,
+        zoom: 15,
         tilt: 30
       }
     });
-    
+    this.geofire.initializeMap(this.map);
   }
   
   async centerOnUser() {

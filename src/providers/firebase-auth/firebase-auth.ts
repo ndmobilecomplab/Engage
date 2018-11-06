@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { FirebaseConfigProvider } from '../firebase-config/firebase-config';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
 import firebase from 'firebase';
 
 /*
