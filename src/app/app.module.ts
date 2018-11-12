@@ -14,6 +14,7 @@ import { LoginPage } from '../pages/login/login';
 import { LoginModal } from '../pages/login-modal/login-modal';
 import { FirebaseDatabaseProvider } from '../providers/firebase-database/firebase-database';
 import { GeofireProvider } from '../providers/geofire/geofire';
+import { DeviceInfoPage } from '../pages/device-info/device-info';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { GeofireProvider } from '../providers/geofire/geofire';
     HomePage,
     ListPage,
     LoginPage,
-    LoginModal
+    LoginModal,
+    DeviceInfoPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { GeofireProvider } from '../providers/geofire/geofire';
     HomePage,
     ListPage,
     LoginPage,
-    LoginModal
+    LoginModal,
+    DeviceInfoPage
   ],
   providers: [
     StatusBar,

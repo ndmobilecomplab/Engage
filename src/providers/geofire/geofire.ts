@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { GoogleMap, GoogleMapsEvent, VisibleRegion, Spherical, Marker, ILatLng } from '@ionic-native/google-maps';
 import GeoFire, { GeoQuery } from 'geofire';
 import { FirebaseDatabaseProvider } from '../firebase-database/firebase-database';
+import { NavController } from 'ionic-angular';
+import { DeviceInfoPage } from '../../pages/device-info/device-info';
 
 /*
   Generated class for the GeofireProvider provider.
@@ -13,18 +15,21 @@ import { FirebaseDatabaseProvider } from '../firebase-database/firebase-database
 export class GeofireProvider {
   geoFire: GeoFire;
 
-  constructor(firebaseDatabase: FirebaseDatabaseProvider) {
+  constructor(private firebaseDatabase: FirebaseDatabaseProvider) {
     this.geoFire = new GeoFire(firebaseDatabase.getLocations());
   }
 
-  initializeMap(map: GoogleMap){
+  initializeMap(map: GoogleMap, onClickGenerator: (key) => (any) => any){
     let query: GeoQuery;
-    let markers: Map<String, Promise<any>> = new Map();
+    let markers: Map<String, Promise<Marker>> = new Map();
     map.addEventListener(GoogleMapsEvent.MAP_READY).subscribe(() => {
       query = this.geoFire.query(this.generateQuery(map));
       var onKeyEnteredRegistration = query.on("key_entered", (key, location, distance) => {
         let marker = map.addMarker({
           position: this.convertToObj(location)
+        }).then((marker) => {
+          marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(onClickGenerator(key));
+          return marker;
         });
         markers[key] = marker;
         return marker;

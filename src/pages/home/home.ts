@@ -9,6 +9,7 @@ import { LoadingController, ToastController, Platform, NavController } from 'ion
 import { FirebaseAuthProvider } from '../../providers/firebase-auth/firebase-auth';
 import { LoginPage } from '../login/login';
 import { GeofireProvider } from '../../providers/geofire/geofire';
+import { DeviceInfoPage } from '../device-info/device-info';
 
 const startLong = -86.2379;
 const startLat = 41.7002;
@@ -56,7 +57,12 @@ export class HomePage {
         tilt: 30
       }
     });
-    this.geofire.initializeMap(this.map);
+    let onClickGenerator = (key: any) => {
+      return () => {
+        this.navCtrl.push(DeviceInfoPage, {key: key});
+      };
+    }
+    this.geofire.initializeMap(this.map, onClickGenerator);
   }
   
   async centerOnUser() {
