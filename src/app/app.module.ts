@@ -4,7 +4,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -15,12 +14,13 @@ import { LoginModal } from '../pages/login-modal/login-modal';
 import { FirebaseDatabaseProvider } from '../providers/firebase-database/firebase-database';
 import { GeofireProvider } from '../providers/geofire/geofire';
 import { DeviceInfoPage } from '../pages/device-info/device-info';
+import { EventsPage } from '../pages/events/events';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
+    EventsPage,
     LoginPage,
     LoginModal,
     DeviceInfoPage
@@ -33,7 +33,7 @@ import { DeviceInfoPage } from '../pages/device-info/device-info';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
+    EventsPage,
     LoginPage,
     LoginModal,
     DeviceInfoPage
