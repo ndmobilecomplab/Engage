@@ -15,12 +15,15 @@ import { FirebaseDatabaseProvider } from '../providers/firebase-database/firebas
 import { GeofireProvider } from '../providers/geofire/geofire';
 import { DeviceInfoPage } from '../pages/device-info/device-info';
 import { EventsPage } from '../pages/events/events';
+import { ComponentsModule } from '../components/components.module';
+import { EventDatePage } from '../pages/event-date/event-date';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     EventsPage,
+    EventDatePage,
     LoginPage,
     LoginModal,
     DeviceInfoPage
@@ -28,12 +31,14 @@ import { EventsPage } from '../pages/events/events';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     EventsPage,
+    EventDatePage,
     LoginPage,
     LoginModal,
     DeviceInfoPage

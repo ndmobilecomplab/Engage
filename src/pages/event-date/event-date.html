@@ -1,0 +1,25 @@
+<!--
+  Generated template for the EventDatePage page.
+  
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  
+  <ion-navbar>
+    <ion-title>{{getFormattedDate()}}</ion-title>
+  </ion-navbar>
+  
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label>Range</ion-label>
+    <ion-select [(ngModel)]="range">
+      <ion-option value="5">5 Miles</ion-option>
+      <ion-option value="10">10 Miles</ion-option>
+      <ion-option value="20">20 Miles</ion-option>
+      <ion-option value="50">50 Miles</ion-option>
+    </ion-select>
+  </ion-item>
+</ion-content>
