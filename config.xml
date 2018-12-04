@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="cse.nd.engage" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>engage</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -90,6 +90,17 @@
         <variable name="API_KEY_FOR_IOS" value="G_API_KEY" />
         <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="This app wants to get your location while this app runs only." />
         <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="This app wants to get your location always, even this app runs in background." />
+    </plugin>
+    <plugin name="cordova-android-play-services-gradle-release" spec="^2.0.0">
+        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
+    </plugin>
+    <plugin name="cordova-plugin-ionic" spec="~5.2.7">
+        <variable name="APP_ID" value="9b3b5b4a" />
+        <variable name="CHANNEL_NAME" value="Master" />
+        <variable name="UPDATE_METHOD" value="auto" />
+        <variable name="UPDATE_API" value="https://api.ionicjs.com" />
+        <variable name="MAX_STORE" value="2" />
+        <variable name="MIN_BACKGROUND_DURATION" value="30" />
     </plugin>
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.5" />
