@@ -1,0 +1,77 @@
+<body>
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://unpkg.com/rsvp@3.1.0/dist/rsvp.min.js"></script>
+    <script src="https://cdn.firebase.com/libs/geofire/4.1.0/geofire.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Initialize the Firebase SDK
+            firebase.initializeApp({
+                apiKey: "G_API_KEY",
+                authDomain: "G_AUTH_DOMAIN",
+                databaseURL: "G_DATABASE_URL",
+                projectId: "G_PROJECT_ID",
+                storageBucket: "G_PROJECT_ID.appspot.com",
+                messagingSenderId: "G_MESSAGING_SENDER_ID"
+            });
+
+            firebase.database().ref('/').set({devices: {}});
+            firebase.database().ref("/organizations").set({});
+            var key = firebase.database().ref("/organizations").push().key;
+            firebase.database().ref("/organizations/" + key).set({
+                name: "Amazon",
+			    home: "amazon.com"
+            });
+            
+            var firebaseMetadata = firebase.database().ref("devices/metadata");
+            var firebaseLocations = firebase.database().ref("devices/locations");
+            
+            firebaseLocations.set({});
+            
+            // Create a new GeoFire instance
+            var geoFire = new GeoFire(firebaseLocations);
+            
+            // Specify the locations for each
+            var uavsLocation = [
+            [41.7045, -86.2329],
+            [41.7030, -86.2391]
+            ];
+            
+            // Set the initial locations
+            var promises = uavsLocation.map(function(location, index) {
+                firebaseMetadata.child('uav' + index).set({
+                    name: "Test UAV",
+		            owner: key,	/* owner organization */
+		            purpose: "None",
+                    type: 'UAV'
+                });
+                return geoFire.set("uav" + index, location).then(function() {
+                    console.log("uav" + index + " initially set to [" + location + "]");
+                });
+            });
+            
+            // Once all the fish are in GeoFire, update some of their positions
+            var newLocation;
+            RSVP.allSettled(promises).then(function() {
+                degrees = 0;
+                radius = .01;
+                setInterval(function(){
+                    degrees += 5;
+                    degrees = degrees % 360;
+                    key = 0;
+                    loc = [...( uavsLocation[key])];
+                    console.log(loc);
+                    loc[1] += radius * Math.cos(degrees / 260 * 3.14);
+                    loc[0] += radius * Math.sin(degrees / 360 * 3.14);
+                    console.log(loc);
+                    geoFire.set("uav" + key, loc);
+                }, 1000);
+            }).then(function() {
+            }).catch(function(error) {
+                // Error case
+                log(error);
+            });
+            
+            
+        })();
+    </script>
+</body>
