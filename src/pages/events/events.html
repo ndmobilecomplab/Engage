@@ -21,7 +21,7 @@
     <ion-col col-12 col-sm>
       <ion-item>
         <ion-label>Range</ion-label>
-        <ion-select [(ngModel)]="range">
+        <ion-select [(ngModel)]="range" (ngModelChange)="rangeChange($event)">
           <ion-option value="5">5 Miles</ion-option>
           <ion-option value="10">10 Miles</ion-option>
           <ion-option value="20">20 Miles</ion-option>
@@ -30,5 +30,15 @@
       </ion-item>
     </ion-col>
   </ion-row>
-  <calendar *ngIf="view == 'month'" (select)="selectedDate($event)"></calendar>
+  <span *ngIf="!events">
+    No events near you.
+  </span>
+  <div *ngIf="mapped"> <!-- need an else -->
+    <calendar *ngIf="view == 'month'" (select)="selectedDate($event)" [events]="mapped | async"></calendar>
+  </div>
+  <div *ngIf="sorted"> <!-- need an else -->
+    <div *ngIf="view == 'agenda'">
+      <event-item *ngFor="let event of (sorted | async)" [event]="event"></event-item>
+    </div>
+  </div>
 </ion-content>

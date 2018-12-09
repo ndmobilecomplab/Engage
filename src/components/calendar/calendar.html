@@ -19,8 +19,10 @@
         <ion-col>Sat</ion-col>
       </ion-row>
       <ion-row class="calendar-date">
-        <ion-col col-1 *ngFor="let day of calendarDays" [class.last-month]="day.getMonth() !== date.getMonth() && day < date" [class.next-month]="day.getMonth() !== date.getMonth() && day > date" (click)="trigger(day)" class="last-month">
+        <ion-col col-1 *ngFor="let day of calendarDays" [ngClass]="monthClasses(day)" (click)="trigger(day)" class="last-month">
           <span [class.currentDate]="today.valueOf() == day.valueOf()">{{day.getDate()}}</span>
+          <br>
+          <span>{{ number(events, day) }}</span>
         </ion-col>
       </ion-row>
     </ion-grid>

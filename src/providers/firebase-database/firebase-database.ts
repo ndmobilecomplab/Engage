@@ -6,6 +6,10 @@ import { Subject } from 'rxjs/Subject';
 import Organization from '../../models/organization';
 import Device from '../../models/device';
 import { Observable } from 'rxjs/Observable';
+import { Event } from '../../models/event';
+import { Observer } from 'rxjs/Observer';
+import { TeardownLogic } from 'rxjs/Subscription';
+import 'rxjs/add/operator/shareReplay';
 
 /*
 Generated class for the FirebaseDatabaseProvider provider.
@@ -15,48 +19,71 @@ and Angular DI.
 */
 @Injectable()
 export class FirebaseDatabaseProvider {
+  
   getLocations(): database.Reference {
     return firebase.database().ref('/devices/locations');
   }
+
+  getEventsLocations(): database.Reference {
+    return firebase.database().ref('/events/locations');
+  }
   
-  private devices: { [key: string] : ObservableListener<Device> } = {};
+  private devices: { [key: string] : Observable<Device> } = {};
   
   getDevice(key: string): Observable<Device> {
     if(!this.devices[key]){
-      let newObservable: ObservableListener<Device> = new ObservableListener<Device>();
-      firebase.database().ref('/devices/metadata/' + key).on('value', newObservable.listener);
+      let generator = (observer: Observer<Device>): TeardownLogic => {
+        let callback = (value: database.DataSnapshot) => {
+          observer.next(value.val());
+        };
+        firebase.database().ref('/devices/metadata/' + key).on('value', callback);
+        return () => {
+          firebase.database().ref('/devices/metadata/' + key).off('value', callback);
+        };
+      };
+      let newObservable: Observable<Device> = Observable.create(generator).share();
       this.devices[key] = newObservable;
     }
-    this.devices[key].usages ++;
-    return this.devices[key].observable;
+    return this.devices[key];
   }
   
-  cancelDevice(key: string): void {//database.DataSnapshot
-    if(this.devices[key] && !--this.devices[key].usages){
-      firebase.database().ref('/devices/metadata/' + key).off('value', this.devices[key].listener);
-      this.devices[key].close();
-      this.devices[key] = null;
-    }
-  }
-  
-  private organizations: { [key: string] : ObservableListener<Organization> } = {};
+  private organizations: { [key: string] : Observable<Organization> } = {};
   
   getOrganization(key: string): Observable<Organization> {
     if(!this.organizations[key]){
-      let newObservable: ObservableListener<Organization> = new ObservableListener<Organization>();
-      firebase.database().ref('/organizations/' + key).on('value', newObservable.listener);
+      let generator = (observer: Observer<Organization>): TeardownLogic => {
+        let callback = (value: database.DataSnapshot) => {
+          observer.next(value.val());
+        };
+        firebase.database().ref('/organizations/' + key).on('value', callback);
+        return () => {
+          firebase.database().ref('/organizations/' + key).off('value', callback);
+        };
+      };
+      let newObservable: Observable<Organization> = Observable.create(generator).share();
       this.organizations[key] = newObservable;
     }
-    this.organizations[key].usages ++;
-    return this.organizations[key].observable;
+    return this.organizations[key];
   }
+
+  private events: { [key: string] : Observable<Event> } = {};
   
-  cancelOrganization(key: string): void {
-    if(this.organizations[key] && !--this.organizations[key].usages){
-      firebase.database().ref('/organizations/' + key).off('value', this.organizations[key].listener);
-      this.organizations[key].close();
-      this.organizations[key] = null;
+  getEvent(key: string): Observable<Event> {
+    if(!this.events[key]){
+      let generator = (observer: Observer<Event>): TeardownLogic => {
+        let callback = (value: database.DataSnapshot) => {
+          observer.next(value.val());
+        };
+        firebase.database().ref('/events/metadata/' + key).on('value', callback);
+        return () => {
+          firebase.database().ref('/events/metadata/' + key).off('value', callback);
+        };
+      };
+      let newObservable: Observable<Event> = Observable.create(generator).shareReplay(1);
+      this.events[key] = newObservable;
     }
+    console.log(key);
+    return this.events[key];
   }
   
   constructor(private firebaseConfig: FirebaseConfigProvider) {

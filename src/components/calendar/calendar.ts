@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 /**
 * Generated class for the CalendarComponent component.
@@ -11,6 +12,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
   templateUrl: 'calendar.html'
 })
 export class CalendarComponent {
+
+  @Input() events: {[date: string]: Event[]};
   
   @Output() select: EventEmitter<Date> = new EventEmitter();
 
@@ -83,5 +86,19 @@ export class CalendarComponent {
 
   trigger(day: Date): void {
     this.select.emit(day);
+  }
+
+  monthClasses(day: Date) {
+    const diffMonth = day.getMonth() !== this.date.getMonth();
+    return {
+      'last-month': diffMonth && day < this.date,
+      'next-month': diffMonth && day > this.date
+    }
+  }
+
+  number(events: {[date: string]: Event[]}, date: Date): string {
+    if(events && events[date.toDateString()]){
+      return events[date.toDateString()].length + ' events';
+    }
   }
 }

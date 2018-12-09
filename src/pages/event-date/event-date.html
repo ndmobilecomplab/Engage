@@ -15,11 +15,14 @@
 <ion-content padding>
   <ion-item>
     <ion-label>Range</ion-label>
-    <ion-select [(ngModel)]="range">
+    <ion-select [(ngModel)]="range" (ngModelChange)="rangeChange($event)">
       <ion-option value="5">5 Miles</ion-option>
       <ion-option value="10">10 Miles</ion-option>
       <ion-option value="20">20 Miles</ion-option>
       <ion-option value="50">50 Miles</ion-option>
     </ion-select>
   </ion-item>
+  <ion-list *ngIf="filtered | async as event_list">
+    <event-item *ngFor="let event of event_list" [event]="event"></event-item>
+  </ion-list>
 </ion-content>

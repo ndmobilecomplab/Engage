@@ -34,9 +34,6 @@ export class DeviceInfoPage {
     
     this.device$ = this.firebaseDatabase.getDevice(this.key);
     this.owner$ = this.device$.map((device : Device) => device.owner).distinctUntilChanged().concatMap((key) => {
-      if(this.owner_key){
-        this.firebaseDatabase.cancelOrganization(this.owner_key);
-      }
       this.owner_key = key;
       return this.firebaseDatabase.getOrganization(key);
     });
@@ -47,8 +44,6 @@ export class DeviceInfoPage {
   }
   
   ionViewWillUnload(){
-    this.firebaseDatabase.cancelDevice(this.key);
-    this.firebaseDatabase.cancelOrganization(this.owner_key);
   }
   
 }
