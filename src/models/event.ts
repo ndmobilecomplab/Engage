@@ -1,5 +1,6 @@
 
 export class Event {
+    key: string;
     title: string;
     owner: string;
     startDate: string;

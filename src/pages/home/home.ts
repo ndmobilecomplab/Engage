@@ -37,7 +37,6 @@ export class HomePage {
     // Since ngOnInit() is executed before `deviceready` event,
     // you have to wait the event.
     this.firebaseAuth.user.subscribe((user) => {
-      console.log(user)
       if(!user)
         
       this.navCtrl.push(LoginPage);
@@ -104,7 +103,6 @@ export class HomePage {
     })
     .catch(err => {
       this.loading.dismiss();
-      console.log(err);
       this.toastCtrl.create({
         message: err.error_message,
         position: 'bottom'

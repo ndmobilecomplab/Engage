@@ -72,7 +72,9 @@ export class FirebaseDatabaseProvider {
     if(!this.events[key]){
       let generator = (observer: Observer<Event>): TeardownLogic => {
         let callback = (value: database.DataSnapshot) => {
-          observer.next(value.val());
+          let event = value.val();
+          event.key = key;
+          observer.next(event);
         };
         firebase.database().ref('/events/metadata/' + key).on('value', callback);
         return () => {
@@ -82,7 +84,6 @@ export class FirebaseDatabaseProvider {
       let newObservable: Observable<Event> = Observable.create(generator).shareReplay(1);
       this.events[key] = newObservable;
     }
-    console.log(key);
     return this.events[key];
   }
   

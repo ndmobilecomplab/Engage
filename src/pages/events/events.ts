@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EventDatePage } from '../event-date/event-date';
-import { GeofireProvider } from '../../providers/geofire/geofire';
+import { GeofireProvider, GeoItem } from '../../providers/geofire/geofire';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Event } from '../../models/event';
@@ -31,7 +31,7 @@ export class EventsPage {
   view: String = 'month';
   events: Observable<{[id: string]: Event}>;
   mapped: Observable<{[date: string]: Event[]}>;
-  sorted: Observable<Event[]>;
+  sorted: Observable<GeoItem<Event>[]>;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private geofire: GeofireProvider) {
     this._range.next(this.range);
@@ -42,9 +42,8 @@ export class EventsPage {
     this._range.next(value);
   }
   
-  ionViewDidLoad() {
-    this.events = this.geofire.getNearbyEvents(this.range, this._range);
-    this.mapped = this.events.map((events) => {
+  ionViewWillEnter() {
+    this.mapped = this.geofire.getNearbyEvents(+this.range, this._range).map((events) => {
       let dates: {[date: string] : Event[]} = {};
       for(const key in events){
         let arr = dates[events[key].startDate] || [];
@@ -53,12 +52,15 @@ export class EventsPage {
       }
       return dates;
     });
-    this.sorted = this.events.map((events) => {
-      let arr: Event[] = [];
+    this.sorted = this.geofire.getNearbyGeoEvents(+this.range, this._range).map((events) => {
+      let arr: GeoItem<Event>[] = [];
       for(const key in events){
-        arr.push(events[key]);
+        let event = events[key];
+        if(new Date() > new Date(event[0].startDate + " " + event[0].startTime)){
+          arr.push(event);
+        }
       }
-      return arr.sort(Event.compare);
+      return arr.sort((one, two) => Event.compare(one[0], two[0]));
     });
   }
 

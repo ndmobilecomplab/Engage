@@ -1,4 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { EventInfoPage } from '../../pages/event-info/event-info';
+import { Event } from '../../models/event';
+import { GeoItem } from '../../providers/geofire/geofire';
 
 /**
  * Generated class for the EventItemComponent component.
@@ -12,9 +16,13 @@ import { Component, Input } from '@angular/core';
 })
 export class EventItemComponent {
 
-  @Input() event: string;
+  @Input() event: GeoItem<Event>;
 
-  constructor() {
+  constructor(private navCtrl: NavController) {
+  }
+
+  selected(){
+    this.navCtrl.push(EventInfoPage, { event: this.event[0].key });
   }
 
 }

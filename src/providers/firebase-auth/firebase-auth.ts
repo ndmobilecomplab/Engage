@@ -32,7 +32,6 @@ export class FirebaseAuthProvider {
   signInAnonymously(): Observable<Boolean> {
     let success: Subject<Boolean> = new Subject();
     firebase.auth().signInAnonymously().catch((error) => {
-      console.log(error);
       success.next(false);
       //TODO: handle errors
     }).then(() => {

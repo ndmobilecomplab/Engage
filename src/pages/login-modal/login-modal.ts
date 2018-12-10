@@ -55,7 +55,6 @@ export class LoginModal {
   }
   
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginModalPage');
   }
   
   closeModal(){

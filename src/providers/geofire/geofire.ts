@@ -17,7 +17,7 @@ import { Observer } from 'rxjs/Observer';
 import { Subscription } from 'rxjs/Subscription';
 
 declare type Location = [number, number];
-declare type GeoItem<T> = [T, Location, number];
+export declare type GeoItem<T> = [T, Location, number];
 /*
 Generated class for the GeofireProvider provider.
 
@@ -56,7 +56,6 @@ export class GeofireProvider {
           }
         });
         onKeyEnteredRegistration = query.on("key_entered", (key, location, distance) => {
-          console.log(key, 'entered');
           subscriptions[key] = this.firebaseDatabase.getEvent(key).subscribe(event => observer.next([key, event]));
         });
         
@@ -67,7 +66,6 @@ export class GeofireProvider {
         });
       });
       return () => {
-        console.log('cleaning');
         if(onKeyEnteredRegistration) onKeyEnteredRegistration.cancel();
         
         if(onKeyExitedRegistration) onKeyExitedRegistration.cancel();
@@ -83,9 +81,7 @@ export class GeofireProvider {
     }, {});
   }
   
-  /*
-  getNearbyGeoitemEvents(radius: number): Observable<{[id: string]: GeoItem<Event>}> {
-    //repr is [key, toDelete?, location, distance]
+  getNearbyGeoEvents(defaultRadius: number, radius: Observable<number>): Observable<{[id: string]: GeoItem<Event>}> {    
     let generator = (observer: Observer<any>) => {
       let onKeyEnteredRegistration: GeoCallbackRegistration, onKeyMovedRegistration: GeoCallbackRegistration, onKeyExitedRegistration: GeoCallbackRegistration;
       
@@ -97,40 +93,47 @@ export class GeofireProvider {
       LocationService.getMyLocation().then((myLocation: MyLocation) => {
         query = this.eventsGeofire.query({
           center: this.convertToArray(myLocation.latLng),
-          radius: 0
+          radius: defaultRadius
         });
-        //radius.subscribe((radius) => query.updateCriteria({radius : 1.61 * radius}));
+        let last = -1; // funny way of doing distinctUntilChanged since this edition doesn't seem to have it
+        radius.subscribe((radius) => {
+          if(radius != last){
+            last = radius;
+            query.updateCriteria({radius : 1.61 * radius});
+          }
+        });
         onKeyEnteredRegistration = query.on("key_entered", (key, location, distance) => {
-          subscriptions[key] = this.firebaseDatabase.getEvent(key).subscribe();
-          observer.next(observables[key]);
+          subscriptions[key] = this.firebaseDatabase.getEvent(key).subscribe(event => observer.next([key, [event, location, distance]]));
         });
-        
+
         onKeyMovedRegistration = query.on("key_moved", (key, location, distance) => {
-          observer.next([key, false, location, distance]);          
+          subscriptions[key].unsubscribe();
+          subscriptions[key] = this.firebaseDatabase.getEvent(key).subscribe(event => observer.next([key, [event, location, distance]]));
         });
         
         onKeyExitedRegistration = query.on("key_exited", (key, location, distance) => {
-          observables[key]
-          observer.next([key, true, location, distance]);
+          subscriptions[key].unsubscribe();
+          delete subscriptions[key];
+          observer.next([key, null]);
         });
       });
       return () => {
         if(onKeyEnteredRegistration) onKeyEnteredRegistration.cancel();
-        
+
         if(onKeyMovedRegistration) onKeyMovedRegistration.cancel();
         
         if(onKeyExitedRegistration) onKeyExitedRegistration.cancel();
       }
     }
     return Observable.create(generator)
-    .concatMap(obj => obj[1] ? this.firebaseDatabase.getEvent(obj[0]).map(event => [obj[0], event, ...obj.splice(2)]) : Observable.of([obj[0], null, null, null]))
-    .scan((acc: {[key: string] : GeoItem<Event>}, value: [string, Event, Location, number], index: number) => {
-      acc[value[0]] = [value[1], value[2], value[3]];
+    .scan((acc: {[key: string] : Event}, value: [string, Event], index: number) => {
+      if(value[1])
+        acc[value[0]] = value[1];
+      else
+        delete acc[value[0]];
       return acc;
-    }, {})
-    .shareReplay(1); //necessary?
+    }, {});
   }
-  */
   
   initializeMap(map: GoogleMap, onClickGenerator: (key) => (any) => any){
     let query: GeoQuery;

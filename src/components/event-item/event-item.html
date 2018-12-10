@@ -1,4 +1,5 @@
-<!-- Generated template for the EventItemComponent component -->
-<ion-item>
+<button ion-item (click)="selected()">
+  <span>{{event[0].title}}</span>
+  <span>{{1.6 * event[2]}} miles away</span>
   {{event | json}}
-</ion-item>
+</button>

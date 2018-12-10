@@ -17,6 +17,7 @@ import { DeviceInfoPage } from '../pages/device-info/device-info';
 import { EventsPage } from '../pages/events/events';
 import { ComponentsModule } from '../components/components.module';
 import { EventDatePage } from '../pages/event-date/event-date';
+import { EventInfoPage } from '../pages/event-info/event-info';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { EventDatePage } from '../pages/event-date/event-date';
     HomePage,
     EventsPage,
     EventDatePage,
+    EventInfoPage,
     LoginPage,
     LoginModal,
     DeviceInfoPage
@@ -39,6 +41,7 @@ import { EventDatePage } from '../pages/event-date/event-date';
     HomePage,
     EventsPage,
     EventDatePage,
+    EventInfoPage,
     LoginPage,
     LoginModal,
     DeviceInfoPage

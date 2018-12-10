@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { GeofireProvider } from '../../providers/geofire/geofire';
+import { GeofireProvider, GeoItem } from '../../providers/geofire/geofire';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { Event } from '../../models/event';
 
 /**
 * Generated class for the EventDatePage page.
@@ -19,8 +21,8 @@ export class EventDatePage {
   date: string;
   range: number = 5;
   private _range: Subject<number> = new Subject();
-  events: any;
-  filtered: any;
+  events: Observable<{[id: string]: GeoItem<Event>}>;
+  filtered: Observable<GeoItem<Event>[]>;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private geofire: GeofireProvider) {
     this.date = navParams.get('date');
@@ -32,18 +34,16 @@ export class EventDatePage {
   }
   
   ionViewWillLoad() {
-    this.events = this.geofire.getNearbyEvents(this.range, this._range);
-    this.events.subscribe(x => console.log(x));
+    this.events = this.geofire.getNearbyGeoEvents(this.range, this._range);
     this.filtered = this.events.map((events) => {
-      let dates: Event[] = [];
+      let dates: GeoItem<Event>[] = [];
       for(const key in events){
-        if(events[key].startDate == this.date){
+        if(events[key][0].startDate == this.date){
           dates.push(events[key]);
         }
       }
       return dates;
     });
-    this.filtered.subscribe(x => console.log(x));
   }
 
   ionViewWillLeave(){
