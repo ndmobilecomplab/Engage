@@ -14,7 +14,7 @@
                 messagingSenderId: "G_MESSAGING_SENDER_ID"
             });
 
-            firebase.database().ref('/').set({events: {}});
+            firebase.database().ref('/events').set({});
             var owner = firebase.database().ref("/organizations").push().key;
             firebase.database().ref("/organizations/" + owner).set({
                 name: "Amazon",
@@ -39,7 +39,7 @@
             // Set the initial locations
             var promises = eventsLocation.map(function(location, index) {
                 var key = firebaseMetadata.push({
-                    name: "Test UAV",
+                    title: "Fun Event with Amazon " + index,
 		            owner: owner,	/* owner organization */
                     startDate: new Date().toDateString(),
                     startTime: new Date().toTimeString(),
