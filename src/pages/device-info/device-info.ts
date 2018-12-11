@@ -11,39 +11,45 @@ import { Subject } from 'rxjs/Subject';
 import { TitleCasePipe } from '@angular/common';
 
 /**
-* Generated class for the DeviceInfoPage page.
-*
-* See https://ionicframework.com/docs/components/#navigation for more info on
-* Ionic pages and navigation.
-*/
-
+ * Page showing more information about the selected device on the map
+ */
 @IonicPage()
 @Component({
   selector: 'page-device-info',
   templateUrl: 'device-info.html',
 })
 export class DeviceInfoPage {
+
+  /**
+   * The key used to identify this device
+   */
   private key;
+
+  /**
+   * The key used to identify the owning organization
+   */
   private owner_key: string;
+
+  /**
+   * The observable getting the most up-to-date information about the device
+   */
   private device$: Observable<Device> = null;
+
+  /**
+   * THe observable getting the most up-to-date information about the organization
+   */
   private owner$: Observable<Organization> = null;
   
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseDatabase: FirebaseDatabaseProvider) {
     this.key = navParams.get("key");
     
+    //TODO should observables be inited in constructor or in view will load
     this.device$ = this.firebaseDatabase.getDevice(this.key);
     this.owner$ = this.device$.map((device : Device) => device.owner).distinctUntilChanged().concatMap((key) => {
       this.owner_key = key;
       return this.firebaseDatabase.getOrganization(key);
     });
-  }
-  
-  ionViewDidLoad() {
-    
-  }
-  
-  ionViewWillUnload(){
   }
   
 }

@@ -5,23 +5,39 @@ import {
   Marker,
   MyLocation
 } from '@ionic-native/google-maps';
-import { LoadingController, ToastController, Platform, NavController } from 'ionic-angular';
+import { LoadingController, ToastController, Platform, NavController, Loading } from 'ionic-angular';
 import { FirebaseAuthProvider } from '../../providers/firebase-auth/firebase-auth';
 import { LoginPage } from '../login/login';
 import { GeofireProvider } from '../../providers/geofire/geofire';
 import { DeviceInfoPage } from '../device-info/device-info';
 
+/**
+ * Starting longitude for the map if location is not found
+ */
 const startLong = -86.2379;
+
+/**
+ * Starting latitude for the map if location is not found
+ */
 const startLat = 41.7002;
 
+/**
+ * Home page
+ */
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  map: GoogleMap;
-  loading: any;
-  markers: { [id: string]: Promise<any> };
+  /**
+   * reference to the included Google Maps element
+   */
+  private map: GoogleMap;
+
+  /**
+   * Loading dialog that shows while waiting to get the user's location
+   */
+  loading: Loading;
   
   constructor(
     public loadingCtrl: LoadingController,

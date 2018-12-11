@@ -26,22 +26,53 @@ import { _createNgProbe } from '@angular/platform-browser/src/dom/debug/ng_probe
   templateUrl: 'events.html',
 })
 export class EventsPage {
+  
+  /**
+   * The range, as set by the dropdown menu
+   */
   range: number = 5;
+
+  /**
+   * The range, expressed as a Subject to pass along values to the nearby events
+   */
   private _range: Subject<number> = new Subject();
+
+  /**
+   * The current view of the calendar selected
+   */
   view: String = 'month';
+  
+  /**
+   * All the events within range of the user, associated with their key/id
+   */
   events: Observable<{[id: string]: Event}>;
+
+  /**
+   * All the events within range of the user, mapped to the date they start on
+   */
   mapped: Observable<{[date: string]: Event[]}>;
+
+  /**
+   * All the events within range and after this moment, in sorted order
+   */
   sorted: Observable<GeoItem<Event>[]>;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private geofire: GeofireProvider) {
     this._range.next(this.range);
   }
   
+  /**
+   * Method bound to the UI to update whenever a range is selected
+   * @param value the new value
+   */
   rangeChange(value: number){
     this.range = value;
     this._range.next(value);
   }
   
+  /**
+   * Before the view is about to be shown, prepare the relevant observables
+   */
   ionViewWillEnter() {
     this.mapped = this.geofire.getNearbyEvents(+this.range, this._range).map((events) => {
       let dates: {[date: string] : Event[]} = {};
@@ -64,11 +95,18 @@ export class EventsPage {
     });
   }
 
+  /**
+   * Clear the relevant observables
+   */
   ionViewWillLeave(){
     this.events = null;
     this.mapped = null;
   }
   
+  /**
+   * Open up the list of events on the date that was selected
+   * @param date the date that was selected
+   */
   selectedDate(date: Date){
     this.navCtrl.push(EventDatePage, {
       'date': date.toDateString(),

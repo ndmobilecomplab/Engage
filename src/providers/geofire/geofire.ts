@@ -2,38 +2,46 @@ import { Injectable } from '@angular/core';
 import { GoogleMap, GoogleMapsEvent, VisibleRegion, Spherical, Marker, ILatLng, LocationService, MyLocation } from '@ionic-native/google-maps';
 import GeoFire, { GeoQuery, GeoCallbackRegistration } from 'geofire';
 import { FirebaseDatabaseProvider } from '../firebase-database/firebase-database';
-import { NavController } from 'ionic-angular';
-import { DeviceInfoPage } from '../../pages/device-info/device-info';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/shareReplay';
 import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/of';
-import { Subject } from 'rxjs/Subject';
 import { Event } from '../../models/event';
-import { Observer } from 'rxjs/Observer';
 import { Subscription } from 'rxjs/Subscription';
 
 declare type Location = [number, number];
 export declare type GeoItem<T> = [T, Location, number];
-/*
-Generated class for the GeofireProvider provider.
 
-See https://angular.io/guide/dependency-injection for more info on providers
-and Angular DI.
-*/
+/**
+ * Provider offering methods to access Geofire
+ */
 @Injectable()
 export class GeofireProvider {
-  geoFire: GeoFire;
-  eventsGeofire: GeoFire;
+
+  /**
+   * The geofire initialized around devices
+   */
+  private devicesGeoFire: GeoFire;
+  
+  /**
+   * The geofire initialized around events
+   */
+  private eventsGeofire: GeoFire;
   
   constructor(private firebaseDatabase: FirebaseDatabaseProvider) {
-    this.geoFire = new GeoFire(firebaseDatabase.getLocations());
+    this.devicesGeoFire = new GeoFire(firebaseDatabase.getDevicesLocations());
     this.eventsGeofire = new GeoFire(firebaseDatabase.getEventsLocations());
   }
   
+  /**
+   * Gets nearby events based on the given radius
+   * @param defaultRadius the radius to start pulling events for immediately
+   * @param radius an observable that updates the query radius
+   */
   getNearbyEvents(defaultRadius: number, radius: Observable<number>): Observable<{[id: string]: Event}> {    
     let generator = (observer: Observer<any>) => {
       let onKeyEnteredRegistration: GeoCallbackRegistration, onKeyExitedRegistration: GeoCallbackRegistration;
@@ -45,7 +53,7 @@ export class GeofireProvider {
       //eventually use something like flatMap() or .scan() to merge observables instead of current approach
       LocationService.getMyLocation().then((myLocation: MyLocation) => {
         query = this.eventsGeofire.query({
-          center: this.convertToArray(myLocation.latLng),
+          center: GeofireProvider.convertToTuple(myLocation.latLng),
           radius: defaultRadius
         });
         let last = -1; // funny way of doing distinctUntilChanged since this edition doesn't seem to have it
@@ -81,6 +89,11 @@ export class GeofireProvider {
     }, {});
   }
   
+  /**
+   * Gets nearby events based on the given radius, including their distance from the user's position
+   * @param defaultRadius the radius to start pulling events for immediately
+   * @param radius an observable that updates the query radius
+   */
   getNearbyGeoEvents(defaultRadius: number, radius: Observable<number>): Observable<{[id: string]: GeoItem<Event>}> {    
     let generator = (observer: Observer<any>) => {
       let onKeyEnteredRegistration: GeoCallbackRegistration, onKeyMovedRegistration: GeoCallbackRegistration, onKeyExitedRegistration: GeoCallbackRegistration;
@@ -92,7 +105,7 @@ export class GeofireProvider {
       //eventually use something like flatMap() or .scan() to merge observables instead of current approach
       LocationService.getMyLocation().then((myLocation: MyLocation) => {
         query = this.eventsGeofire.query({
-          center: this.convertToArray(myLocation.latLng),
+          center: GeofireProvider.convertToTuple(myLocation.latLng),
           radius: defaultRadius
         });
         let last = -1; // funny way of doing distinctUntilChanged since this edition doesn't seem to have it
@@ -135,14 +148,20 @@ export class GeofireProvider {
     }, {});
   }
   
+  /**
+   * Initializes the map to pull the markers from Geofire
+   * @param map the map to put the markers onto
+   * @param onClickGenerator the function to run when a marker is clicked on
+   * @deprecated Needs to change
+   */
   initializeMap(map: GoogleMap, onClickGenerator: (key) => (any) => any){
     let query: GeoQuery;
     let markers: Map<String, Promise<Marker>> = new Map();
     map.addEventListener(GoogleMapsEvent.MAP_READY).subscribe(() => {
-      query = this.geoFire.query(this.generateQuery(map));
+      query = this.devicesGeoFire.query(this.generateQuery(map));
       var onKeyEnteredRegistration = query.on("key_entered", (key, location, distance) => {
         let marker = map.addMarker({
-          position: this.convertToObj(location)
+          position: GeofireProvider.convertToObj(location)
         }).then((marker) => {
           marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(onClickGenerator(key));
           return marker;
@@ -165,7 +184,7 @@ export class GeofireProvider {
       var onKeyMovedRegistration = query.on("key_moved", (key, location, distance) => {
         //update marker at index
         markers[key] = markers[key].then((marker: Marker) => {
-          marker.setPosition(this.convertToObj(location));
+          marker.setPosition(GeofireProvider.convertToObj(location));
           return marker;
           //use Spherical.computeHeading() with old to get icon rotation
         });
@@ -176,23 +195,35 @@ export class GeofireProvider {
     });
   }
   
-  convertToObj(location: [number, number]): ILatLng {
+  /**
+   * Converts a location between tuple and object form
+   * @param {[number, number]} location location as a tuple
+   */
+  private static convertToObj(location: [number, number]): ILatLng {
     return {
       lng: location[1],
       lat: location[0]
     };
   }
   
-  convertToArray(location: ILatLng): [number, number] {
+  /**
+   * Converts a location between object and tuple form
+   * @param {ILatLng} location location as an object
+   */
+  private static convertToTuple(location: ILatLng): [number, number] {
     return [location.lat, location.lng];
   }
   
+  /**
+   * Generates the query based on the current map window
+   * @param {GoogleMap} map the map to generate the query for
+   */
   private generateQuery(map: GoogleMap): GeoFire.QueryCriteria {
     let visibleRegion: VisibleRegion = map.getVisibleRegion();
     let diameter = Spherical.computeDistanceBetween(visibleRegion.northeast, visibleRegion.southwest);
     let camera = map.getCameraPosition().target;
     return {
-      center: this.convertToArray(camera),
+      center: GeofireProvider.convertToTuple(camera),
       radius: diameter
     };
   }

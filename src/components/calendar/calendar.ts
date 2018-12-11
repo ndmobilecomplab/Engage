@@ -2,10 +2,7 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 /**
-* Generated class for the CalendarComponent component.
-*
-* See https://angular.io/api/core/Component for more info on Angular
-* Components.
+* A component that allows a user to browse events in a calendar view
 */
 @Component({
   selector: 'calendar',
@@ -13,20 +10,61 @@ import { Observable } from 'rxjs/Observable';
 })
 export class CalendarComponent {
 
+  /**
+   * All the events that you want to display
+   */
   @Input() events: {[date: string]: Event[]};
   
+  /**
+   * Allows a parent component to react when a date is selected
+   */
   @Output() select: EventEmitter<Date> = new EventEmitter();
 
+
+  /**
+   * The current day
+   */
   today: Date
+  
+  /**
+   * A date in the month selected, defaults to today, but is offset by months
+  */
   date: Date;
+
+  /**
+   * All the dates in the current month
+   */
   daysInThisMonth: Date[];
+
+  /**
+   * All the dates that would fit on the calendar in the previous month
+   */
   daysInLastMonth: Date[];
+
+  /**
+   * All the dates in the next month that would fit in the calendar
+   */
   daysInNextMonth: Date[];
+
+  /**
+   * All the dates fitting on the current calendar window, joined together
+   */
   calendarDays: Date[];
-  monthNames: String[] = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  /**
+   * The names of all the months
+   */
+  static readonly monthNames: String[] = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  
+  /**
+   * The name of the current month
+   */
   currentMonth: String;
+
+  /**
+   * The current year
+   */
   currentYear: Number;
-  currentDate: Number;
   
   constructor() {
     this.today = new Date();
@@ -35,11 +73,14 @@ export class CalendarComponent {
     this.getDaysOfMonth();
   }
 
+  /**
+   * Sets up all the date arrays based on the date field
+   */
   getDaysOfMonth(): void {
     this.daysInThisMonth = new Array();
     this.daysInLastMonth = new Array();
     this.daysInNextMonth = new Array();
-    this.currentMonth = this.monthNames[this.date.getMonth()];
+    this.currentMonth = CalendarComponent.monthNames[this.date.getMonth()];
     this.currentYear = this.date.getFullYear();
 
     const makeDate = (baseDate, date) => {
@@ -74,20 +115,34 @@ export class CalendarComponent {
     this.calendarDays = [...this.daysInLastMonth, ...this.daysInThisMonth, ...this.daysInNextMonth];
   }
   
+  /**
+   * UI driven action moving the user back a month
+   */
   goToLastMonth(): void {
     this.date = new Date(this.date.getFullYear(), this.date.getMonth(), 0);
     this.getDaysOfMonth();
   }
 
+  /**
+   * UI driven method moving the user back a month
+   */
   goToNextMonth(): void {
     this.date = new Date(this.date.getFullYear(), this.date.getMonth()+2, 0);
     this.getDaysOfMonth();
   }
 
+  /**
+   * Triggers an output event when the user selects a day in the UI
+   * @param day the selected day
+   */
   trigger(day: Date): void {
     this.select.emit(day);
   }
 
+  /**
+   * Utility method to generate the formatting classes for dates, in regards to the month they are in
+   * @param day the date to generate classes for
+   */
   monthClasses(day: Date) {
     const diffMonth = day.getMonth() !== this.date.getMonth();
     return {
@@ -96,6 +151,11 @@ export class CalendarComponent {
     }
   }
 
+  /**
+   * Gets the number of events on a day
+   * @param events the list of all events, sorted by event date
+   * @param date the date to search for
+   */
   number(events: {[date: string]: Event[]}, date: Date): string {
     if(events && events[date.toDateString()]){
       return events[date.toDateString()].length + ' events';

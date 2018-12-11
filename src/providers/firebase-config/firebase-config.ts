@@ -1,20 +1,24 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 
-/*
-Generated class for the FirebaseConfigProvider provider.
-
-See https://angular.io/guide/dependency-injection for more info on providers
-and Angular DI.
-*/
+/**
+ * Provider that needs to be injected and initialized as a dependency for providers using Firebase
+ */
 @Injectable()
 export class FirebaseConfigProvider {
+
+  /**
+   * Prevents Firebase from being initialized multiple times
+   */
   private isInit = false;
   
   constructor() {
   }
   
-  init(){
+  /**
+   * Sets up Firebase with the user's credentials
+   */
+  init(): void {
     if(this.isInit) return;
     this.isInit = true;
     const config = {

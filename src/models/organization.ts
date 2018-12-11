@@ -1,4 +1,15 @@
+/**
+* The model class for an organization
+*/
 export default class Organization {
-        name: string;	/* Amazon */
-        home: string;	/* amazon.com */
+    
+    /**
+     * The name of the organization
+     */
+    name: string;	/* Amazon */
+    
+    /**
+     * The home of the organization - e.g. URL
+    */
+    home: string;	/* amazon.com */
 }

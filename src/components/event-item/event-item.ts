@@ -5,22 +5,24 @@ import { Event } from '../../models/event';
 import { GeoItem } from '../../providers/geofire/geofire';
 
 /**
- * Generated class for the EventItemComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
+ * An item showing a brief bit of information about an event
  */
 @Component({
   selector: 'event-item',
   templateUrl: 'event-item.html'
 })
 export class EventItemComponent {
-
+  /**
+   * The event, containing the distance it is from the user's location
+   */
   @Input() event: GeoItem<Event>;
 
   constructor(private navCtrl: NavController) {
   }
 
+  /**
+   * When selected, launch the user into a more descriptive page about the event
+   */
   selected(){
     this.navCtrl.push(EventInfoPage, { event: this.event[0].key });
   }

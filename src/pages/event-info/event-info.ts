@@ -5,18 +5,18 @@ import { Event } from '../../models/event';
 import { Observable } from 'rxjs/Observable';
 
 /**
-* Generated class for the EventInfoPage page.
-*
-* See https://ionicframework.com/docs/components/#navigation for more info on
-* Ionic pages and navigation.
-*/
-
+ * A page showing more detailed information about an event
+ */
 @IonicPage()
 @Component({
   selector: 'page-event-info',
   templateUrl: 'event-info.html',
 })
 export class EventInfoPage {
+
+  /**
+   * The observable tracking changes to the selected observable
+   */
   event$: Observable<Event>;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private firebase: FirebaseDatabaseProvider) {

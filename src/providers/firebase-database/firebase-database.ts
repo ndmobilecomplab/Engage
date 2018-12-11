@@ -11,25 +11,36 @@ import { Observer } from 'rxjs/Observer';
 import { TeardownLogic } from 'rxjs/Subscription';
 import 'rxjs/add/operator/shareReplay';
 
-/*
-Generated class for the FirebaseDatabaseProvider provider.
-
-See https://angular.io/guide/dependency-injection for more info on providers
-and Angular DI.
-*/
+/**
+ * Injectable class giving access to the Firebase Realtime Database.
+ */
 @Injectable()
 export class FirebaseDatabaseProvider {
   
-  getLocations(): database.Reference {
+  /**
+   * @returns A reference to the devices' geofire
+   */
+  getDevicesLocations(): database.Reference {
     return firebase.database().ref('/devices/locations');
   }
 
+  /**
+   * @returns A reference to the events' geofire
+   */
   getEventsLocations(): database.Reference {
     return firebase.database().ref('/events/locations');
   }
   
+  /**
+   * Internal tracker of whether an observable has been created for a particular device
+   */
   private devices: { [key: string] : Observable<Device> } = {};
   
+  /**
+   * 
+   * @param {string} key the id of the device
+   * @returns An observable containing the most recent information of the device
+   */
   getDevice(key: string): Observable<Device> {
     if(!this.devices[key]){
       let generator = (observer: Observer<Device>): TeardownLogic => {
@@ -47,8 +58,16 @@ export class FirebaseDatabaseProvider {
     return this.devices[key];
   }
   
+  /**
+   * Internal tracker of whether an observable has been created for a particular organization
+   */
   private organizations: { [key: string] : Observable<Organization> } = {};
   
+  /**
+   * 
+   * @param {string} key the id of the organization
+   * @returns An observable containing the most recent information of the organization
+   */
   getOrganization(key: string): Observable<Organization> {
     if(!this.organizations[key]){
       let generator = (observer: Observer<Organization>): TeardownLogic => {
@@ -60,14 +79,22 @@ export class FirebaseDatabaseProvider {
           firebase.database().ref('/organizations/' + key).off('value', callback);
         };
       };
-      let newObservable: Observable<Organization> = Observable.create(generator).share();
+      let newObservable: Observable<Organization> = Observable.create(generator).shareReplay(1);
       this.organizations[key] = newObservable;
     }
     return this.organizations[key];
   }
 
+  /**
+   * Internal tracker of whether an observable has been created for a particular event
+   */
   private events: { [key: string] : Observable<Event> } = {};
   
+  /**
+   * 
+   * @param {string} key the id of the event
+   * @returns An observable containing the most recent information of the event
+   */
   getEvent(key: string): Observable<Event> {
     if(!this.events[key]){
       let generator = (observer: Observer<Event>): TeardownLogic => {
@@ -88,26 +115,7 @@ export class FirebaseDatabaseProvider {
   }
   
   constructor(private firebaseConfig: FirebaseConfigProvider) {
+    firebaseConfig.init();
   }
   
-}
-
-class ObservableListener<T> {
-  private _subject: Subject<T> = new Subject<T>();
-  
-  usages: number = 0;
-  
-  observable: Observable<T>;
-  
-  constructor(){
-    this.observable = this._subject.asObservable();
-  }
-  
-  listener = (payload : database.DataSnapshot) => {
-    this._subject.next(payload.val());
-  };
-  
-  close = () => {
-    this._subject.complete();
-  }
 }
