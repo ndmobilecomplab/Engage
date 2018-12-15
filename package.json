@@ -9,7 +9,7 @@
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
-    "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json"
+    "doc": "./node_modules/.bin/compodoc -p tsconfig.json"
   },
   "dependencies": {
     "@angular/animations": "5.2.11",

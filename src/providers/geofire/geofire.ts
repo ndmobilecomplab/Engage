@@ -10,6 +10,7 @@ import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/interval';
 import { Event } from '../../models/event';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -194,6 +195,22 @@ export class GeofireProvider {
       query.updateCriteria(this.generateQuery(map));
     });
   }
+
+  /**
+   * Gets the location of the device as an observable updating every 2 seconds
+   * @param key the key/id of the device
+   */
+  getDeviceLocation(key: string): Observable<ILatLng> {
+    return Observable.interval(2000).switchMap(() => this.devicesGeoFire.get(key).then(GeofireProvider.convertToObj)).distinctUntilChanged(GeofireProvider.locationEquals);
+  }
+
+  /**
+   * Gets the location of the event as an observable updating every 2 seconds
+   * @param key the key/id of the event
+   */
+  getEventLocation(key: string): Observable<ILatLng> {
+    return Observable.interval(2000).switchMap(() => this.eventsGeofire.get(key).then(GeofireProvider.convertToObj)).distinctUntilChanged(GeofireProvider.locationEquals);
+  }
   
   /**
    * Converts a location between tuple and object form
@@ -226,5 +243,9 @@ export class GeofireProvider {
       center: GeofireProvider.convertToTuple(camera),
       radius: diameter
     };
+  }
+
+  private static locationEquals(one: ILatLng, two: ILatLng){
+    return one && two && one.lat == two.lat && one.lng == two.lng;
   }
 }

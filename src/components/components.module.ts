@@ -3,11 +3,13 @@ import { CalendarComponent } from './calendar/calendar';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
 import { EventItemComponent } from './event-item/event-item';
+import { MapComponent } from './map/map';
 
 @NgModule({
 	declarations: [
 		CalendarComponent,
-    	EventItemComponent
+    	EventItemComponent,
+    	MapComponent
 	],
 	imports: [
 		CommonModule,
@@ -15,7 +17,8 @@ import { EventItemComponent } from './event-item/event-item';
 	],
 	exports: [
 		CalendarComponent,
-    	EventItemComponent
+    	EventItemComponent,
+    	MapComponent
 	]
 })
 export class ComponentsModule {}

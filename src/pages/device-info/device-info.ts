@@ -9,6 +9,8 @@ import Organization from '../../models/organization';
 import Device from '../../models/device';
 import { Subject } from 'rxjs/Subject';
 import { TitleCasePipe } from '@angular/common';
+import { GeofireProvider } from '../../providers/geofire/geofire';
+import { ILatLng } from '@ionic-native/google-maps';
 
 /**
  * Page showing more information about the selected device on the map
@@ -36,12 +38,17 @@ export class DeviceInfoPage {
   private device$: Observable<Device> = null;
 
   /**
-   * THe observable getting the most up-to-date information about the organization
+   * The observable getting the most up-to-date information about the organization
    */
   private owner$: Observable<Organization> = null;
+
+  /**
+   * An observable getting the most up-to-date information about where the device is located - used for the map component
+   */
+  location$: Observable<ILatLng>;
   
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseDatabase: FirebaseDatabaseProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseDatabase: FirebaseDatabaseProvider, private geofire: GeofireProvider) {
     this.key = navParams.get("key");
     
     //TODO should observables be inited in constructor or in view will load
@@ -50,6 +57,7 @@ export class DeviceInfoPage {
       this.owner_key = key;
       return this.firebaseDatabase.getOrganization(key);
     });
+    this.location$ = geofire.getDeviceLocation(this.key);
   }
   
 }

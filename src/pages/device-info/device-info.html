@@ -28,4 +28,7 @@
     <dt>Owned by:</dt>
     <dd>{{owner.name}}</dd>
   </dl>
+  <div *ngIf="location$ | async as location">
+    <map [location]="location"></map>
+  </div>
 </ion-content>

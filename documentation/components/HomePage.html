@@ -695,8 +695,6 @@ export class HomePage {
   }
   
   async centerOnUser() {
-    this.map.clear();
-    
     this.loading &#x3D; this.loadingCtrl.create({
       content: &#x27;Please wait...&#x27;
     });
@@ -705,7 +703,6 @@ export class HomePage {
     // Get the location of you
     this.map.getMyLocation().then((location: MyLocation) &#x3D;&gt; {
       this.loading.dismiss();
-      console.log(JSON.stringify(location, null ,2));
       
       // Move the map camera to the location with animation
       this.map.animateCamera({
@@ -714,6 +711,7 @@ export class HomePage {
         tilt: 30
       });
       
+      /*
       // add a marker
       let marker: Marker &#x3D; this.map.addMarkerSync({
         //title: &#x27;You are here&#x27;,
@@ -721,7 +719,7 @@ export class HomePage {
         position: location.latLng,
         //animation: GoogleMapsAnimation.BOUNCE
       });
-      
+      */
       /*
       // show the infoWindow
       marker.showInfoWindow();
@@ -787,7 +785,7 @@ export class HomePage {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-navbar>    <button ion-button menuToggle>      <ion-icon name="menu"></ion-icon>    </button>    <ion-title>Home</ion-title>  </ion-navbar></ion-header><ion-content padding>  <ion-button ion-button (click)="centerOnUser()">Center on User</ion-button>  <div id="map_canvas">  </div></ion-content></div>'
-    var COMPONENTS = [{'name': 'CalendarComponent', 'selector': 'calendar'},{'name': 'DeviceInfoPage', 'selector': 'page-device-info'},{'name': 'EventDatePage', 'selector': 'page-event-date'},{'name': 'EventInfoPage', 'selector': 'page-event-info'},{'name': 'EventItemComponent', 'selector': 'event-item'},{'name': 'EventsPage', 'selector': 'page-events'},{'name': 'HomePage', 'selector': 'page-home'},{'name': 'LoginModal', 'selector': 'page-login-modal'},{'name': 'LoginPage', 'selector': 'page-login'},{'name': 'MyApp', 'selector': ''}];
+    var COMPONENTS = [{'name': 'CalendarComponent', 'selector': 'calendar'},{'name': 'DeviceInfoPage', 'selector': 'page-device-info'},{'name': 'EventDatePage', 'selector': 'page-event-date'},{'name': 'EventInfoPage', 'selector': 'page-event-info'},{'name': 'EventItemComponent', 'selector': 'event-item'},{'name': 'EventsPage', 'selector': 'page-events'},{'name': 'HomePage', 'selector': 'page-home'},{'name': 'LoginModal', 'selector': 'page-login-modal'},{'name': 'LoginPage', 'selector': 'page-login'},{'name': 'MapComponent', 'selector': 'map'},{'name': 'MyApp', 'selector': ''}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HomePage'};
 </script>

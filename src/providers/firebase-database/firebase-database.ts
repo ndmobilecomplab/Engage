@@ -37,7 +37,7 @@ export class FirebaseDatabaseProvider {
   private devices: { [key: string] : Observable<Device> } = {};
   
   /**
-   * 
+   * Gets an observable with the most up-to-date information about the device
    * @param {string} key the id of the device
    * @returns An observable containing the most recent information of the device
    */
@@ -64,7 +64,7 @@ export class FirebaseDatabaseProvider {
   private organizations: { [key: string] : Observable<Organization> } = {};
   
   /**
-   * 
+   * Gets an observable with the most up-to-date information about the organization
    * @param {string} key the id of the organization
    * @returns An observable containing the most recent information of the organization
    */
@@ -91,7 +91,7 @@ export class FirebaseDatabaseProvider {
   private events: { [key: string] : Observable<Event> } = {};
   
   /**
-   * 
+   * Gets an observable with the most up-to-date information about the event
    * @param {string} key the id of the event
    * @returns An observable containing the most recent information of the event
    */

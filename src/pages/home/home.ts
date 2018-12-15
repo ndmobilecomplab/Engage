@@ -81,8 +81,6 @@ export class HomePage {
   }
   
   async centerOnUser() {
-    this.map.clear();
-    
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -91,7 +89,6 @@ export class HomePage {
     // Get the location of you
     this.map.getMyLocation().then((location: MyLocation) => {
       this.loading.dismiss();
-      console.log(JSON.stringify(location, null ,2));
       
       // Move the map camera to the location with animation
       this.map.animateCamera({
@@ -100,6 +97,7 @@ export class HomePage {
         tilt: 30
       });
       
+      /*
       // add a marker
       let marker: Marker = this.map.addMarkerSync({
         //title: 'You are here',
@@ -107,7 +105,7 @@ export class HomePage {
         position: location.latLng,
         //animation: GoogleMapsAnimation.BOUNCE
       });
-      
+      */
       /*
       // show the infoWindow
       marker.showInfoWindow();

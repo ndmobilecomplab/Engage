@@ -12,7 +12,18 @@
 
 </ion-header>
 
-
 <ion-content padding>
-  {{event$ | async | json}}
+  <dl *ngIf="event$ | async as event">
+    {{event | json}}
+    <dt>Name:</dt>
+    <dd>{{event.title}}</dd>
+  </dl>
+  <dl *ngIf="owner$ | async as owner">
+    {{owner | json}}
+    <dt>Owned by:</dt>
+    <dd>{{owner.name}}</dd>
+  </dl>
+  <div *ngIf="location$ | async as location">
+    <map [location]="location"></map>
+  </div>
 </ion-content>

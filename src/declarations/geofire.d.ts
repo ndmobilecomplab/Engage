@@ -46,7 +46,7 @@ declare module 'geofire' {
     class GeoFire {
       constructor(ref:GeoFire.Ref);
       ref():GeoFire
-      get(key:string):Promise<string>
+      get(key:string):Promise<GeoFire.Location>
       set(key:string, location:GeoFire.Location): Promise<null>
       set(locations:GeoFire.Dictionary<GeoFire.Location>): Promise<null>
       remove(key:string):Promise<null>
