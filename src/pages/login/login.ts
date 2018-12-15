@@ -4,12 +4,8 @@ import { FirebaseAuthProvider } from '../../providers/firebase-auth/firebase-aut
 import { LoginModal } from '../login-modal/login-modal';
 
 /**
-* Generated class for the LoginPage page.
-*
-* See https://ionicframework.com/docs/components/#navigation for more info on
-* Ionic pages and navigation.
-*/
-
+ * Page that the user is shown if they are not logged in
+ */
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -25,6 +21,9 @@ export class LoginPage {
     });
   }
   
+  /**
+   * Method called by UI to trigger backend service to login the user and show relevant error message
+   */
   loginAnonymously(){
     this.firebaseAuth.signInAnonymously().subscribe((successful) => {
       if(successful){
@@ -39,10 +38,16 @@ export class LoginPage {
     });
   }
   
+  /**
+   * Method called by UI to trigger backend service to login the user with Google
+   */
   loginGoogle(){
     this.firebaseAuth.signInWithGoogle();
   }
   
+  /**
+   * Method called by the UI to trigger the login with email and password modal
+   */
   loginEmailPassword(){
     let loginModal = this.modalCtrl.create(LoginModal);
     loginModal.present();

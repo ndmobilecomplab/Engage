@@ -5,19 +5,22 @@ import { FirebaseAuthProvider } from '../../providers/firebase-auth/firebase-aut
 import { Observable } from 'rxjs/Observable';
 
 /**
-* Generated class for the LoginModalPage page.
-*
-* See https://ionicframework.com/docs/components/#navigation for more info on
-* Ionic pages and navigation.
-*/
-
+ * Modal that allows for a user to sign in or sign up with their username and password
+ */
 @IonicPage()
 @Component({
   selector: 'page-login-modal',
   templateUrl: 'login-modal.html',
 })
 export class LoginModal {
-  needAccount = false;
+  /**
+   * Switch changing whether the user is shown the sign up or sign in content
+   */
+  private needAccount = false;
+
+  /**
+   * Form group containing the username, password, and potentially confirm password
+   */
   private loginForm : FormGroup;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private formBuilder: FormBuilder, private firebaseAuth: FirebaseAuthProvider, private toastCtrl: ToastController) {
@@ -28,7 +31,10 @@ export class LoginModal {
     });
   }
   
-  submit(){
+  /**
+   * Submits the login form, logs in or signs up the user, and handles response appropiately
+   */
+  submit(): void {
     if(this.loginForm.status == "VALID"){
       let result: Observable<firebase.auth.UserCredential>;
       if(this.needAccount){
@@ -47,6 +53,10 @@ export class LoginModal {
     }
   }
   
+  /**
+   * Function that checks whether the confirm password field is in sync with the password field - given whether the user is loggin in or signing up
+   * @returns an object with the mismatch flag if out of sync, otherwise nothing
+   */
   checkPasswords = (control: AbstractControl) => {
     if(this.needAccount && control.value != this.loginForm.controls.password.value){
       return { mismatch: true };
@@ -54,15 +64,17 @@ export class LoginModal {
     return;
   }
   
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginModalPage');
-  }
-  
-  closeModal(){
+  /**
+   * UI triggered action that closes the modal
+   */
+  private closeModal(){
     this.viewCtrl.dismiss();
   }
   
-  toggle(){
+  /**
+   * UI driven toggle between signing in and signing up
+   */
+  private toggle(){
     this.needAccount = !this.needAccount;
   }
   

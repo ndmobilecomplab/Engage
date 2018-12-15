@@ -5,22 +5,39 @@ import {
   Marker,
   MyLocation
 } from '@ionic-native/google-maps';
-import { LoadingController, ToastController, Platform, NavController } from 'ionic-angular';
+import { LoadingController, ToastController, Platform, NavController, Loading } from 'ionic-angular';
 import { FirebaseAuthProvider } from '../../providers/firebase-auth/firebase-auth';
 import { LoginPage } from '../login/login';
 import { GeofireProvider } from '../../providers/geofire/geofire';
+import { DeviceInfoPage } from '../device-info/device-info';
 
+/**
+ * Starting longitude for the map if location is not found
+ */
 const startLong = -86.2379;
+
+/**
+ * Starting latitude for the map if location is not found
+ */
 const startLat = 41.7002;
 
+/**
+ * Home page
+ */
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  map: GoogleMap;
-  loading: any;
-  markers: { [id: string]: Promise<any> };
+  /**
+   * reference to the included Google Maps element
+   */
+  private map: GoogleMap;
+
+  /**
+   * Loading dialog that shows while waiting to get the user's location
+   */
+  loading: Loading;
   
   constructor(
     public loadingCtrl: LoadingController,
@@ -36,7 +53,6 @@ export class HomePage {
     // Since ngOnInit() is executed before `deviceready` event,
     // you have to wait the event.
     this.firebaseAuth.user.subscribe((user) => {
-      console.log(user)
       if(!user)
         
       this.navCtrl.push(LoginPage);
@@ -56,12 +72,15 @@ export class HomePage {
         tilt: 30
       }
     });
-    this.geofire.initializeMap(this.map);
+    let onClickGenerator = (key: any) => {
+      return () => {
+        this.navCtrl.push(DeviceInfoPage, {key: key});
+      };
+    }
+    this.geofire.initializeMap(this.map, onClickGenerator);
   }
   
   async centerOnUser() {
-    this.map.clear();
-    
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -70,7 +89,6 @@ export class HomePage {
     // Get the location of you
     this.map.getMyLocation().then((location: MyLocation) => {
       this.loading.dismiss();
-      console.log(JSON.stringify(location, null ,2));
       
       // Move the map camera to the location with animation
       this.map.animateCamera({
@@ -79,6 +97,7 @@ export class HomePage {
         tilt: 30
       });
       
+      /*
       // add a marker
       let marker: Marker = this.map.addMarkerSync({
         //title: 'You are here',
@@ -86,7 +105,7 @@ export class HomePage {
         position: location.latLng,
         //animation: GoogleMapsAnimation.BOUNCE
       });
-      
+      */
       /*
       // show the infoWindow
       marker.showInfoWindow();
@@ -98,7 +117,6 @@ export class HomePage {
     })
     .catch(err => {
       this.loading.dismiss();
-      console.log(err);
       this.toastCtrl.create({
         message: err.error_message,
         position: 'bottom'

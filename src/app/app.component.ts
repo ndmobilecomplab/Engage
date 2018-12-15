@@ -4,9 +4,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { Environment } from '@ionic-native/google-maps';
 import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth';
+import { EventsPage } from '../pages/events/events';
 
 @Component({
   templateUrl: 'app.html'
@@ -24,7 +24,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Events', component: EventsPage }
     ];
 
   }
@@ -34,8 +34,8 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       Environment.setEnv({
-        'API_KEY_FOR_BROWSER_RELEASE': 'G_API_KEY',
-        'API_KEY_FOR_BROWSER_DEBUG': 'G_API_KEY'
+        'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyBqbkrAUK0cttecGx-uRnUA-2jbYkl_S8A',
+        'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyBqbkrAUK0cttecGx-uRnUA-2jbYkl_S8A'
       });
       this.statusBar.styleDefault();
       this.splashScreen.hide();

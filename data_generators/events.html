@@ -1,0 +1,54 @@
+<body>
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://unpkg.com/rsvp@3.1.0/dist/rsvp.min.js"></script>
+    <script src="https://cdn.firebase.com/libs/geofire/4.1.0/geofire.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Initialize the Firebase SDK
+            firebase.initializeApp({
+                apiKey: "AIzaSyBqbkrAUK0cttecGx-uRnUA-2jbYkl_S8A",
+                authDomain: "engage-219920.firebaseapp.com",
+                databaseURL: "https://engage-219920.firebaseio.com",
+                projectId: "engage-219920",
+                storageBucket: "engage-219920.appspot.com",
+                messagingSenderId: "498276752871"
+            });
+
+            firebase.database().ref('/events').set({});
+            var owner = firebase.database().ref("/organizations").push().key;
+            firebase.database().ref("/organizations/" + owner).set({
+                name: "Amazon",
+			    home: "amazon.com"
+            });
+            
+            var date = new Date().toDateString().split(' ').splice(1).join('-');
+            var firebaseMetadata = firebase.database().ref("events/metadata");
+            var firebaseLocations = firebase.database().ref("events/locations");
+            
+            firebaseLocations.set({});
+            
+            // Create a new GeoFire instance
+            var geoFire = new GeoFire(firebaseLocations);
+            
+            // Specify the locations for each
+            var eventsLocation = [
+                [41.7045, -86.2329],
+                [41.7030, -86.2391]
+            ];
+            
+            // Set the initial locations
+            var promises = eventsLocation.map(function(location, index) {
+                var key = firebaseMetadata.push({
+                    title: "Fun Event with Amazon " + index,
+		            owner: owner,	/* owner organization */
+                    startDate: new Date().toDateString(),
+                    startTime: new Date().toTimeString(),
+                    endDate: new Date().toDateString(),
+                    endTime: new Date().toTimeString()
+                }).key;
+                return geoFire.set(key, location).then(function() {
+                });
+            });
+        })();
+    </script>
+</body>

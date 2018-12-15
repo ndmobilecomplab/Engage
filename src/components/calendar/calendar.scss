@@ -1,0 +1,57 @@
+
+$month-header: #427EE8;
+$day-header: #488aff;
+
+$selected-date: #ef473a;
+
+$other-month: #444444;
+
+$seventh: 14.285714285714286%;
+[col-1] {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 $seventh;
+  -ms-flex: 0 0 $seventh;
+  flex: 0 0 $seventh;
+  width: $seventh;
+  max-width: $seventh;
+}
+.col {
+  text-align: center;
+  padding: 5px;
+}
+.last-month, .next-month {
+  font-size: 90%;
+  color: $other-month;
+}
+.currentDate, .otherDate {
+  padding: 5px;
+}
+.currentDate {
+  font-weight: bold;
+  background-color: $selected-date;
+  color: white;
+  border-radius: 30px;
+}
+.calendar-header {
+  background-color: $month-header;
+  color: #FFFFFF;
+}
+.grid {
+  padding: 0;
+}
+.col:last-child {
+  border-right: none;
+}
+.calendar-weekday, .calendar-date {
+  text-align: center;
+  margin: 0;
+}
+.calendar-weekday {
+  font-weight: bold;
+  border-bottom: solid 1px $month-header;
+  background-color: $day-header;
+}
+.calendar-date {
+  border-top: solid 1px $month-header;
+  border-bottom: solid 1px $month-header;
+}

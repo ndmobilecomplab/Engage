@@ -1,0 +1,1353 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>engage documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">engage documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>GeofireProvider</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/providers/geofire/geofire.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Provider offering methods to access Geofire</p>
+
+            </p>
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#devicesGeoFire">devicesGeoFire</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#eventsGeofire">eventsGeofire</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Static</span>
+                                <a href="#convertToObj">convertToObj</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Static</span>
+                                <a href="#convertToTuple">convertToTuple</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#generateQuery">generateQuery</a>
+                            </li>
+                            <li>
+                                <a href="#getDeviceLocation">getDeviceLocation</a>
+                            </li>
+                            <li>
+                                <a href="#getEventLocation">getEventLocation</a>
+                            </li>
+                            <li>
+                                <a href="#getNearbyEvents">getNearbyEvents</a>
+                            </li>
+                            <li>
+                                <a href="#getNearbyGeoEvents">getNearbyGeoEvents</a>
+                            </li>
+                            <li>
+                                <a href="#initializeMap">initializeMap</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Static</span>
+                                <a href="#locationEquals">locationEquals</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(firebaseDatabase: <a href="../injectables/FirebaseDatabaseProvider.html">FirebaseDatabaseProvider</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/providers/geofire/geofire.ts:34</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>firebaseDatabase</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/FirebaseDatabaseProvider.html" target="_self" >FirebaseDatabaseProvider</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="convertToObj"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                                <span class="modifier">Static</span>
+                            convertToObj
+                            </b>
+                            <a href="#convertToObj"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>convertToObj(location: [number, number])</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="219" class="link-to-prism">src/providers/geofire/geofire.ts:219</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Converts a location between tuple and object form</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>location</td>
+                                                        <td>
+                                                                    <code>[number, number]</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>location as a tuple</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>ILatLng</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="convertToTuple"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                                <span class="modifier">Static</span>
+                            convertToTuple
+                            </b>
+                            <a href="#convertToTuple"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>convertToTuple(location: ILatLng)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="230" class="link-to-prism">src/providers/geofire/geofire.ts:230</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Converts a location between object and tuple form</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>location</td>
+                                                        <td>
+                                                                    <code>ILatLng</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>location as an object</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="generateQuery"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            generateQuery
+                            </b>
+                            <a href="#generateQuery"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>generateQuery(map: GoogleMap)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="238" class="link-to-prism">src/providers/geofire/geofire.ts:238</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Generates the query based on the current map window</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>map</td>
+                                                        <td>
+                                                                    <code>GoogleMap</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>the map to generate the query for</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>GeoFire.QueryCriteria</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getDeviceLocation"></a>
+                        <span class="name">
+                            <b>
+                            getDeviceLocation
+                            </b>
+                            <a href="#getDeviceLocation"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>getDeviceLocation(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="203" class="link-to-prism">src/providers/geofire/geofire.ts:203</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Gets the location of the device as an observable updating every 2 seconds</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>key</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>the key/id of the device</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;ILatLng&gt;</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getEventLocation"></a>
+                        <span class="name">
+                            <b>
+                            getEventLocation
+                            </b>
+                            <a href="#getEventLocation"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>getEventLocation(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="211" class="link-to-prism">src/providers/geofire/geofire.ts:211</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Gets the location of the event as an observable updating every 2 seconds</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>key</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>the key/id of the event</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;ILatLng&gt;</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getNearbyEvents"></a>
+                        <span class="name">
+                            <b>
+                            getNearbyEvents
+                            </b>
+                            <a href="#getNearbyEvents"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>getNearbyEvents(defaultRadius: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, radius: Observable<number>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/providers/geofire/geofire.ts:46</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Gets nearby events based on the given radius</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>defaultRadius</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>the radius to start pulling events for immediately</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>radius</td>
+                                                        <td>
+                                                                    <code>Observable&lt;number&gt;</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>an observable that updates the query radius</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;literal type&gt;</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getNearbyGeoEvents"></a>
+                        <span class="name">
+                            <b>
+                            getNearbyGeoEvents
+                            </b>
+                            <a href="#getNearbyGeoEvents"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>getNearbyGeoEvents(defaultRadius: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, radius: Observable<number>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/providers/geofire/geofire.ts:98</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Gets nearby events based on the given radius, including their distance from the user&#39;s position</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>defaultRadius</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>the radius to start pulling events for immediately</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>radius</td>
+                                                        <td>
+                                                                    <code>Observable&lt;number&gt;</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>an observable that updates the query radius</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;literal type&gt;</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="initializeMap"></a>
+                        <span class="name">
+                            <b>
+                            initializeMap
+                            </b>
+                            <a href="#initializeMap"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>initializeMap(map: GoogleMap, onClickGenerator: (undefined) => void)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="158" class="link-to-prism">src/providers/geofire/geofire.ts:158</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Initializes the map to pull the markers from Geofire</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>map</td>
+                                                        <td>
+                                                                    <code>GoogleMap</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>the map to put the markers onto</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>onClickGenerator</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>the function to run when a marker is clicked on</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="locationEquals"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                                <span class="modifier">Static</span>
+                            locationEquals
+                            </b>
+                            <a href="#locationEquals"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>locationEquals(one: ILatLng, two: ILatLng)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="248" class="link-to-prism">src/providers/geofire/geofire.ts:248</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>one</td>
+                                                        <td>
+                                                                    <code>ILatLng</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>two</td>
+                                                        <td>
+                                                                    <code>ILatLng</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="devicesGeoFire"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            devicesGeoFire
+                            </b>
+                            <a href="#devicesGeoFire"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>devicesGeoFire:     <code>GeoFire</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>GeoFire</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/providers/geofire/geofire.ts:29</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The geofire initialized around devices</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="eventsGeofire"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            eventsGeofire
+                            </b>
+                            <a href="#eventsGeofire"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>eventsGeofire:     <code>GeoFire</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>GeoFire</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/providers/geofire/geofire.ts:34</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The geofire initialized around events</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { GoogleMap, GoogleMapsEvent, VisibleRegion, Spherical, Marker, ILatLng, LocationService, MyLocation } from &#x27;@ionic-native/google-maps&#x27;;
+import GeoFire, { GeoQuery, GeoCallbackRegistration } from &#x27;geofire&#x27;;
+import { FirebaseDatabaseProvider } from &#x27;../firebase-database/firebase-database&#x27;;
+import { Observable } from &#x27;rxjs/Observable&#x27;;
+import { Observer } from &#x27;rxjs/Observer&#x27;;
+import &#x27;rxjs/add/operator/combineLatest&#x27;;
+import &#x27;rxjs/add/operator/shareReplay&#x27;;
+import &#x27;rxjs/add/operator/scan&#x27;;
+import &#x27;rxjs/add/operator/do&#x27;;
+import &#x27;rxjs/add/operator/mergeMap&#x27;;
+import &#x27;rxjs/add/observable/of&#x27;;
+import &#x27;rxjs/add/observable/interval&#x27;;
+import { Event } from &#x27;../../models/event&#x27;;
+import { Subscription } from &#x27;rxjs/Subscription&#x27;;
+
+declare type Location &#x3D; [number, number];
+export declare type GeoItem&lt;T&gt; &#x3D; [T, Location, number];
+
+/**
+ * Provider offering methods to access Geofire
+ */
+@Injectable()
+export class GeofireProvider {
+
+  /**
+   * The geofire initialized around devices
+   */
+  private devicesGeoFire: GeoFire;
+  
+  /**
+   * The geofire initialized around events
+   */
+  private eventsGeofire: GeoFire;
+  
+  constructor(private firebaseDatabase: FirebaseDatabaseProvider) {
+    this.devicesGeoFire &#x3D; new GeoFire(firebaseDatabase.getDevicesLocations());
+    this.eventsGeofire &#x3D; new GeoFire(firebaseDatabase.getEventsLocations());
+  }
+  
+  /**
+   * Gets nearby events based on the given radius
+   * @param defaultRadius the radius to start pulling events for immediately
+   * @param radius an observable that updates the query radius
+   */
+  getNearbyEvents(defaultRadius: number, radius: Observable&lt;number&gt;): Observable&lt;{[id: string]: Event}&gt; {    
+    let generator &#x3D; (observer: Observer&lt;any&gt;) &#x3D;&gt; {
+      let onKeyEnteredRegistration: GeoCallbackRegistration, onKeyExitedRegistration: GeoCallbackRegistration;
+      
+      let subscriptions: {[id: string]: Subscription} &#x3D; {};
+      
+      let query: GeoQuery;
+      //TODO if location is changing, use a combineLatest
+      //eventually use something like flatMap() or .scan() to merge observables instead of current approach
+      LocationService.getMyLocation().then((myLocation: MyLocation) &#x3D;&gt; {
+        query &#x3D; this.eventsGeofire.query({
+          center: GeofireProvider.convertToTuple(myLocation.latLng),
+          radius: defaultRadius
+        });
+        let last &#x3D; -1; // funny way of doing distinctUntilChanged since this edition doesn&#x27;t seem to have it
+        radius.subscribe((radius) &#x3D;&gt; {
+          if(radius !&#x3D; last){
+            last &#x3D; radius;
+            query.updateCriteria({radius : 1.61 * radius});
+          }
+        });
+        onKeyEnteredRegistration &#x3D; query.on(&quot;key_entered&quot;, (key, location, distance) &#x3D;&gt; {
+          subscriptions[key] &#x3D; this.firebaseDatabase.getEvent(key).subscribe(event &#x3D;&gt; observer.next([key, event]));
+        });
+        
+        onKeyExitedRegistration &#x3D; query.on(&quot;key_exited&quot;, (key, location, distance) &#x3D;&gt; {
+          subscriptions[key].unsubscribe();
+          delete subscriptions[key];
+          observer.next([key, null]);
+        });
+      });
+      return () &#x3D;&gt; {
+        if(onKeyEnteredRegistration) onKeyEnteredRegistration.cancel();
+        
+        if(onKeyExitedRegistration) onKeyExitedRegistration.cancel();
+      }
+    }
+    return Observable.create(generator)
+    .scan((acc: {[key: string] : Event}, value: [string, Event], index: number) &#x3D;&gt; {
+      if(value[1])
+        acc[value[0]] &#x3D; value[1];
+      else
+        delete acc[value[0]];
+      return acc;
+    }, {});
+  }
+  
+  /**
+   * Gets nearby events based on the given radius, including their distance from the user&#x27;s position
+   * @param defaultRadius the radius to start pulling events for immediately
+   * @param radius an observable that updates the query radius
+   */
+  getNearbyGeoEvents(defaultRadius: number, radius: Observable&lt;number&gt;): Observable&lt;{[id: string]: GeoItem&lt;Event&gt;}&gt; {    
+    let generator &#x3D; (observer: Observer&lt;any&gt;) &#x3D;&gt; {
+      let onKeyEnteredRegistration: GeoCallbackRegistration, onKeyMovedRegistration: GeoCallbackRegistration, onKeyExitedRegistration: GeoCallbackRegistration;
+      
+      let subscriptions: {[id: string]: Subscription} &#x3D; {};
+      
+      let query: GeoQuery;
+      //TODO if location is changing, use a combineLatest
+      //eventually use something like flatMap() or .scan() to merge observables instead of current approach
+      LocationService.getMyLocation().then((myLocation: MyLocation) &#x3D;&gt; {
+        query &#x3D; this.eventsGeofire.query({
+          center: GeofireProvider.convertToTuple(myLocation.latLng),
+          radius: defaultRadius
+        });
+        let last &#x3D; -1; // funny way of doing distinctUntilChanged since this edition doesn&#x27;t seem to have it
+        radius.subscribe((radius) &#x3D;&gt; {
+          if(radius !&#x3D; last){
+            last &#x3D; radius;
+            query.updateCriteria({radius : 1.61 * radius});
+          }
+        });
+        onKeyEnteredRegistration &#x3D; query.on(&quot;key_entered&quot;, (key, location, distance) &#x3D;&gt; {
+          subscriptions[key] &#x3D; this.firebaseDatabase.getEvent(key).subscribe(event &#x3D;&gt; observer.next([key, [event, location, distance]]));
+        });
+
+        onKeyMovedRegistration &#x3D; query.on(&quot;key_moved&quot;, (key, location, distance) &#x3D;&gt; {
+          subscriptions[key].unsubscribe();
+          subscriptions[key] &#x3D; this.firebaseDatabase.getEvent(key).subscribe(event &#x3D;&gt; observer.next([key, [event, location, distance]]));
+        });
+        
+        onKeyExitedRegistration &#x3D; query.on(&quot;key_exited&quot;, (key, location, distance) &#x3D;&gt; {
+          subscriptions[key].unsubscribe();
+          delete subscriptions[key];
+          observer.next([key, null]);
+        });
+      });
+      return () &#x3D;&gt; {
+        if(onKeyEnteredRegistration) onKeyEnteredRegistration.cancel();
+
+        if(onKeyMovedRegistration) onKeyMovedRegistration.cancel();
+        
+        if(onKeyExitedRegistration) onKeyExitedRegistration.cancel();
+      }
+    }
+    return Observable.create(generator)
+    .scan((acc: {[key: string] : Event}, value: [string, Event], index: number) &#x3D;&gt; {
+      if(value[1])
+        acc[value[0]] &#x3D; value[1];
+      else
+        delete acc[value[0]];
+      return acc;
+    }, {});
+  }
+  
+  /**
+   * Initializes the map to pull the markers from Geofire
+   * @param map the map to put the markers onto
+   * @param onClickGenerator the function to run when a marker is clicked on
+   * @deprecated Needs to change
+   */
+  initializeMap(map: GoogleMap, onClickGenerator: (key) &#x3D;&gt; (any) &#x3D;&gt; any){
+    let query: GeoQuery;
+    let markers: Map&lt;String, Promise&lt;Marker&gt;&gt; &#x3D; new Map();
+    map.addEventListener(GoogleMapsEvent.MAP_READY).subscribe(() &#x3D;&gt; {
+      query &#x3D; this.devicesGeoFire.query(this.generateQuery(map));
+      var onKeyEnteredRegistration &#x3D; query.on(&quot;key_entered&quot;, (key, location, distance) &#x3D;&gt; {
+        let marker &#x3D; map.addMarker({
+          position: GeofireProvider.convertToObj(location)
+        }).then((marker) &#x3D;&gt; {
+          marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(onClickGenerator(key));
+          return marker;
+        });
+        markers[key] &#x3D; marker;
+        return marker;
+        //add marker at position
+        //add it to dict based on key
+      });
+      
+      var onKeyExitedRegistration &#x3D; query.on(&quot;key_exited&quot;, (key, location, distance) &#x3D;&gt; {
+        //remove marker at index
+        markers[key].then((marker: Marker) &#x3D;&gt; {
+          marker.remove();
+        });
+        markers.delete(key);
+        return null;
+      });
+      
+      var onKeyMovedRegistration &#x3D; query.on(&quot;key_moved&quot;, (key, location, distance) &#x3D;&gt; {
+        //update marker at index
+        markers[key] &#x3D; markers[key].then((marker: Marker) &#x3D;&gt; {
+          marker.setPosition(GeofireProvider.convertToObj(location));
+          return marker;
+          //use Spherical.computeHeading() with old to get icon rotation
+        });
+      });
+    });
+    map.addEventListener(GoogleMapsEvent.CAMERA_MOVE_END).subscribe(()&#x3D;&gt;{
+      query.updateCriteria(this.generateQuery(map));
+    });
+  }
+
+  /**
+   * Gets the location of the device as an observable updating every 2 seconds
+   * @param key the key/id of the device
+   */
+  getDeviceLocation(key: string): Observable&lt;ILatLng&gt; {
+    return Observable.interval(2000).switchMap(() &#x3D;&gt; this.devicesGeoFire.get(key).then(GeofireProvider.convertToObj)).distinctUntilChanged(GeofireProvider.locationEquals);
+  }
+
+  /**
+   * Gets the location of the event as an observable updating every 2 seconds
+   * @param key the key/id of the event
+   */
+  getEventLocation(key: string): Observable&lt;ILatLng&gt; {
+    return Observable.interval(2000).switchMap(() &#x3D;&gt; this.eventsGeofire.get(key).then(GeofireProvider.convertToObj)).distinctUntilChanged(GeofireProvider.locationEquals);
+  }
+  
+  /**
+   * Converts a location between tuple and object form
+   * @param {[number, number]} location location as a tuple
+   */
+  private static convertToObj(location: [number, number]): ILatLng {
+    return {
+      lng: location[1],
+      lat: location[0]
+    };
+  }
+  
+  /**
+   * Converts a location between object and tuple form
+   * @param {ILatLng} location location as an object
+   */
+  private static convertToTuple(location: ILatLng): [number, number] {
+    return [location.lat, location.lng];
+  }
+  
+  /**
+   * Generates the query based on the current map window
+   * @param {GoogleMap} map the map to generate the query for
+   */
+  private generateQuery(map: GoogleMap): GeoFire.QueryCriteria {
+    let visibleRegion: VisibleRegion &#x3D; map.getVisibleRegion();
+    let diameter &#x3D; Spherical.computeDistanceBetween(visibleRegion.northeast, visibleRegion.southwest);
+    let camera &#x3D; map.getCameraPosition().target;
+    return {
+      center: GeofireProvider.convertToTuple(camera),
+      radius: diameter
+    };
+  }
+
+  private static locationEquals(one: ILatLng, two: ILatLng){
+    return one &amp;&amp; two &amp;&amp; one.lat &#x3D;&#x3D; two.lat &amp;&amp; one.lng &#x3D;&#x3D; two.lng;
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'GeofireProvider.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
