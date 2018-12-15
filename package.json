@@ -61,8 +61,8 @@
       },
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-googlemaps": {
-        "API_KEY_FOR_ANDROID": "G_API_KEY",
-        "API_KEY_FOR_IOS": "G_API_KEY",
+        "API_KEY_FOR_ANDROID": "AIzaSyBqbkrAUK0cttecGx-uRnUA-2jbYkl_S8A",
+        "API_KEY_FOR_IOS": "AIzaSyBqbkrAUK0cttecGx-uRnUA-2jbYkl_S8A",
         "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
         "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background."
       }

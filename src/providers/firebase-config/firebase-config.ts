@@ -23,12 +23,12 @@ export class FirebaseConfigProvider {
     this.isInit = true;
     const config = {
       //FB CRED
-      apiKey: "G_API_KEY",
-      authDomain: "G_AUTH_DOMAIN",
-      databaseURL: "G_DATABASE_URL",
-      projectId: "G_PROJECT_ID",
-      storageBucket: "G_PROJECT_ID.appspot.com",
-      messagingSenderId: "G_MESSAGING_SENDER_ID"
+      apiKey: "AIzaSyBqbkrAUK0cttecGx-uRnUA-2jbYkl_S8A",
+      authDomain: "engage-219920.firebaseapp.com",
+      databaseURL: "https://engage-219920.firebaseio.com",
+      projectId: "engage-219920",
+      storageBucket: "engage-219920.appspot.com",
+      messagingSenderId: "498276752871"
       //END FB CRED
       // TODO: Replace with your project's customized code snippet
     };
