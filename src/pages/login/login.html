@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar hideBackButton="true">
+  <ion-navbar hideBackButton="true" color="primary">
     <ion-title>Login</ion-title>
   </ion-navbar>
 
@@ -14,9 +14,22 @@
 
 
 <ion-content padding text-center>
-  <ion-button ion-button (click)="loginGoogle()">Log-in via Google</ion-button>
   <br>
-  <ion-button ion-button (click)="loginEmailPassword()">Log-in with Email and Password</ion-button>
+  <img src="../../assets/imgs/engageLogo.png" alt="Engage Logo" margin=5% width=40% height=auto>
   <br>
-  <ion-button ion-button (click)="loginAnonymously()">Log-in Anonymously</ion-button>
+  <ion-button ion-button (click)="loginGoogle()" ion-button color="secondary" margin=5%>
+    Log-in via Google
+  </ion-button>
+  <br>
+  <ion-button ion-button (click)="loginEmailPassword()" ion-button color="secondary" margin=5%>
+    Log-in with Email
+  </ion-button>
+  <br>
+  <ion-button ion-button (click)="loginAnonymously()" ion-button color="secondary" margin=5%>
+    Log-in Anonymously
+  </ion-button>
 </ion-content>
+
+
+<!-- style="padding: 200px 10px;" Makes the button really thick since padding
+changes the inside of an object! -->

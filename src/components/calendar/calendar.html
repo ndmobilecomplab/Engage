@@ -1,6 +1,6 @@
 <!-- Code adapted from https://www.djamware.com/post/5a0bb8f780aca75eadc12d6b/build-ionic-3-angular-5-calendar-ui-with-event-integration -->
 <div class="calendar">
-  <div class="calendar-header">
+  <div class="calendar-header" color="dark">
     <ion-row class="calendar-month">
       <ion-col col-2 (click)="goToLastMonth()"><ion-icon name="arrow-back"></ion-icon></ion-col>
       <ion-col col-8>{{currentMonth}} {{currentYear}}</ion-col>
@@ -9,7 +9,7 @@
   </div>
   <div class="calendar-body">
     <ion-grid>
-      <ion-row class="calendar-weekday">
+      <ion-row class="calendar-weekday" color="secondary">
         <ion-col>Sun</ion-col>
         <ion-col>Mon</ion-col>
         <ion-col>Tue</ion-col>

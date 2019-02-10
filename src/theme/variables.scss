@@ -42,17 +42,30 @@ $app-direction: ltr;
   dark:       #222
 );*/
 
-//Theme colors: Ionic automatically applied many of these
+/* Theme colors: Ionic automatically applied many of these ->
+* since primary is used if no button color is specified */
 $colors: (
   primary:    #226970,
   secondary:  #BD7B4C,
+  tertiary:   #4CB3BD,
   danger:     #f04141,
   light:      #BD8F79,
-  dark:       #703C17
+  dark:       #703C17,
+  twitter:    #4CB3BD //Not sure what twitter does?
+  //Can add base and contrast properties for the background and text colors
 );
 
-//Added these colors from the Ionic color generator
+/* Sets variables for all modes */
 :root {
+  /* Sets background color for the whole app */
+  --ion-background-color: #4CB3BD;
+  --ion-background-color-rgb: rgb(76,179,189);
+
+  /* Sets the font family for the whole app */
+//  --ion-font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Roboto", sans-serif;
+//Doesn't seem to work globally in browser?
+
+  //Added these colors from the Ionic color generator
   --ion-color-primary: #226970;
   --ion-color-primary-rgb: 34,105,112;
   --ion-color-primary-contrast: #ffffff;
