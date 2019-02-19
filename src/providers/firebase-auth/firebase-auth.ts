@@ -13,11 +13,11 @@ export class FirebaseAuthProvider {
    * A subject that subscribes to updates to the user
    */
   private _user: Subject<firebase.User> = null;
-  
+
   constructor(firebaseConfig: FirebaseConfigProvider) {
     firebaseConfig.init();
   }
-  
+
   /**
    * Gets the private _user, initializing it if needed
    */
@@ -31,7 +31,7 @@ export class FirebaseAuthProvider {
     }
     return this._user;
   }
-  
+
   /**
    * Signs the user in anonymously
    * @returns Whether the result was successful
@@ -49,17 +49,17 @@ export class FirebaseAuthProvider {
     });
     return success.asObservable();
   }
-  
+
   /**
    * Signs the user in with Google - redirecting the user
    */
   signInWithGoogle(): void {
     this.setSignedIn("google");
-    
+
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithRedirect(provider);
   }
-  
+
   /**
    * @deprecated
    */
@@ -69,9 +69,9 @@ export class FirebaseAuthProvider {
     if(window.localStorage.getItem("AUTH") == "google"){
       firebase.auth().getRedirectResult().then((result) => {
         if(result != null)
-        
+
         console.log(result);
-        
+
         if (result.credential) {
           // This gives you a Google Access Token. You can use it to access the Google API.
           //var token = result.credential.accessToken;
@@ -93,7 +93,7 @@ export class FirebaseAuthProvider {
       });
     } */
   }
-  
+
   /**
    * Sets a session variable to save how the user had signed in
    * @param method how the user signed in
@@ -101,7 +101,7 @@ export class FirebaseAuthProvider {
   setSignedIn(method : string){
     window.localStorage.setItem("AUTH", method);
   }
-  
+
   /**
    * Signs the user in with the specified credentials
    * @param email the user's email
@@ -114,9 +114,9 @@ export class FirebaseAuthProvider {
     }).catch((error) => {
       observer.error(FirebaseAuthProvider.convertErrorCode(error));
     });
-    return observer.asObservable();
+    return observer.asObservable(); 
   }
-  
+
   /**
    * Creates a new account for the user
    * @param email the user's email
@@ -133,7 +133,7 @@ export class FirebaseAuthProvider {
     });
     return observer.asObservable();
   }
-  
+
   /**
    * Converts the error code into a nice, human-readable string
    * @param error the error code provide from Firebase
@@ -152,7 +152,7 @@ export class FirebaseAuthProvider {
        return 'Could not complete that action';
     }
   }
-  
+
   /**
    * Signs the user out
    */
