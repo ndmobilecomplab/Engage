@@ -11,10 +11,10 @@ export class FirebaseConfigProvider {
    * Prevents Firebase from being initialized multiple times
    */
   private isInit = false;
-  
+
   constructor() {
   }
-  
+
   /**
    * Sets up Firebase with the user's credentials
    */
@@ -23,7 +23,7 @@ export class FirebaseConfigProvider {
     this.isInit = true;
     const config = {
       //FB CRED
-      apiKey: "AIzaSyBqbkrAUK0cttecGx-uRnUA-2jbYkl_S8A",
+      apiKey: "AIzaSyA4Y2iDyXiefGeK9q121k7qHwOPfkrmk5A",
       authDomain: "engage-219920.firebaseapp.com",
       databaseURL: "https://engage-219920.firebaseio.com",
       projectId: "engage-219920",
@@ -34,5 +34,5 @@ export class FirebaseConfigProvider {
     };
     firebase.initializeApp(config);
   }
-  
+
 }

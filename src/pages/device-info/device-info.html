@@ -14,8 +14,11 @@
 
 
 <ion-content padding>
+  <h2>Device Summary:</h2>
   <dl *ngIf="device$ | async as device">
-    {{device | json}}
+    <!--{{device | json}} Comment out just to see if it cleans it up
+    This was just spitting out the raw JSON for no reason.
+    -->
     <dt>Name:</dt>
     <dd>{{device.name}}</dd>
     <dt>Type:</dt>
@@ -24,7 +27,7 @@
     <dd>{{device.purpose}}</dd>
   </dl>
   <dl *ngIf="owner$ | async as owner">
-    {{owner | json}}
+    <!--{{owner | json}}  Experimental comment out-->
     <dt>Owned by:</dt>
     <dd>{{owner.name}}</dd>
   </dl>

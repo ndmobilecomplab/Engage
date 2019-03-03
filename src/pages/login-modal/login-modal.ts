@@ -36,14 +36,17 @@ export class LoginModal {
    */
   submit(): void {
     if(this.loginForm.status == "VALID"){
+      console.log("Login form status VALID!")
       let result: Observable<firebase.auth.UserCredential>;
       if(this.needAccount){
         //Added first line for testing
         //this.firebaseAuth.createUserWithEmailAndPassword(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
+        console.log("Attempting to create a new account.")
         result = this.firebaseAuth.newAccount(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
       } else {
         //Added first line for testing
         //firebase.auth().signInWithEmailAndPassword(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
+        console.log("Attempting to log in.")
         result = this.firebaseAuth.signInWithCreds(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
       }
       result.subscribe((result) =>{
@@ -84,6 +87,20 @@ export class LoginModal {
    */
   private toggle(){
     this.needAccount = !this.needAccount;
+  }
+
+  /**
+  * Function that toggles visibility of password -> work in progress...
+  * not right yet
+  */
+  private showHide(){
+    console.log("Hide the password!")
+    /**if (this.loginForm.controls.password.value.type == 'text') {
+      this.loginForm.controls.password.value.type = 'password'
+    }
+    else {
+      this.loginForm.controls.password.value.type = 'text'
+    } **/
   }
 
 }
