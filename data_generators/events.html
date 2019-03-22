@@ -20,22 +20,23 @@
                 name: "Amazon",
 			    home: "amazon.com"
             });
-            
+
             var date = new Date().toDateString().split(' ').splice(1).join('-');
             var firebaseMetadata = firebase.database().ref("events/metadata");
             var firebaseLocations = firebase.database().ref("events/locations");
-            
+
             firebaseLocations.set({});
-            
+
             // Create a new GeoFire instance
             var geoFire = new GeoFire(firebaseLocations);
-            
+
             // Specify the locations for each
             var eventsLocation = [
                 [41.7045, -86.2329],
-                [41.7030, -86.2391]
+                [41.7030, -86.2391],
+                //[41.7050, -86.2345] //Attempting to add extra marker... might be event 
             ];
-            
+
             // Set the initial locations
             var promises = eventsLocation.map(function(location, index) {
                 var key = firebaseMetadata.push({

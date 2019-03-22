@@ -14,64 +14,78 @@
                 messagingSenderId: "498276752871"
             });
 
-            firebase.database().ref('/devices').set({});
-            firebase.database().ref("/organizations").set({});
-            var key = firebase.database().ref("/organizations").push().key;
-            firebase.database().ref("/organizations/" + key).set({
-                name: "Amazon",
-			    home: "amazon.com"
+            firebase.auth().signInAnonymously().catch(function(error) {
+              console.log(error.code);
+              console.log(error.message);
+              console.log("Went into auth function!!");
             });
-            
-            var firebaseMetadata = firebase.database().ref("devices/metadata");
-            var firebaseLocations = firebase.database().ref("devices/locations");
-            
-            firebaseLocations.set({});
-            
-            // Create a new GeoFire instance
-            var geoFire = new GeoFire(firebaseLocations);
-            
-            // Specify the locations for each
-            var uavsLocation = [
-            [41.7045, -86.2329],
-            [41.7030, -86.2391]
-            ];
-            
-            // Set the initial locations
-            var promises = uavsLocation.map(function(location, index) {
-                firebaseMetadata.child('uav' + index).set({
-                    name: "Test UAV",
-		            owner: key,	/* owner organization */
-		            purpose: "None",
-                    type: 'UAV'
-                });
-                return geoFire.set("uav" + index, location).then(function() {
-                    console.log("uav" + index + " initially set to [" + location + "]");
-                });
-            });
-            
-            // Once all the fish are in GeoFire, update some of their positions
-            var newLocation;
-            RSVP.allSettled(promises).then(function() {
-                degrees = 0;
-                radius = .01;
-                setInterval(function(){
-                    degrees += 5;
-                    degrees = degrees % 360;
-                    key = 0;
-                    loc = [...( uavsLocation[key])];
-                    console.log(loc);
-                    loc[1] += radius * Math.cos(degrees / 260 * 3.14);
-                    loc[0] += radius * Math.sin(degrees / 360 * 3.14);
-                    console.log(loc);
-                    geoFire.set("uav" + key, loc);
-                }, 1000);
-            }).then(function() {
-            }).catch(function(error) {
-                // Error case
-                log(error);
-            });
-            
-            
+            firebase.auth().onAuthStateChanged(function(user) {
+              console.log("HELLO");
+              if(user) {
+                console.log("USER!");
+                console.log(user);
+                firebase.database().ref('/devices').set({});
+                firebase.database().ref("/organizations").set({});
+                var key = firebase.database().ref("/organizations").push().key;
+                firebase.database().ref("/organizations/" + key).set({
+                   name: "Amazon",
+			             home: "amazon.com"
+                 });
+
+                 var firebaseMetadata = firebase.database().ref("devices/metadata");
+                 var firebaseLocations = firebase.database().ref("devices/locations");
+
+                 firebaseLocations.set({});
+
+                 // Create a new GeoFire instance
+                 var geoFire = new GeoFire(firebaseLocations);
+
+                 // Specify the locations for each
+                 var uavsLocation = [
+                   [41.7045, -86.2329],
+                   [41.7030, -86.2391]
+                   //[41.7050, -86.2345] //Attempting to add extra marker
+                 ];
+
+                 // Set the initial locations
+                 var promises = uavsLocation.map(function(location, index) {
+                   firebaseMetadata.child('uav' + index).set({
+                     name: "Test UAV",
+		                 owner: key,	/* owner organization */
+		                 purpose: "None",
+                     type: 'UAV'
+                   });
+                   return geoFire.set("uav" + index, location).then(function() {
+                     console.log("uav" + index + " initially set to [" + location + "]");
+                   });
+                 });
+
+                 // Once all the fish are in GeoFire, update some of their positions
+                 var newLocation;
+                 RSVP.allSettled(promises).then(function() {
+                   degrees = 0;
+                   radius = .01;
+                   setInterval(function(){
+                     degrees += 5;
+                     degrees = degrees % 360;
+                     key = 0;
+                     loc = [...( uavsLocation[key])];
+                     console.log(loc);
+                     console.log("SOS"); //hmmm
+                     loc[1] += radius * Math.cos(degrees / 260 * 3.14);
+                     loc[0] += radius * Math.sin(degrees / 360 * 3.14);
+                     console.log(loc);
+                     geoFire.set("uav" + key, loc);
+                   }, 1000);
+                 }).then(function() {
+                 }).catch(function(error) {
+                   // Error case
+                   log(error);
+                 });
+               }
+          });
+
+
         })();
     </script>
 </body>

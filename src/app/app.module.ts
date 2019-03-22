@@ -18,6 +18,7 @@ import { EventsPage } from '../pages/events/events';
 import { ComponentsModule } from '../components/components.module';
 import { EventDatePage } from '../pages/event-date/event-date';
 import { EventInfoPage } from '../pages/event-info/event-info';
+import { NewsPage } from '../pages/news/news'; 
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { EventInfoPage } from '../pages/event-info/event-info';
     EventInfoPage,
     LoginPage,
     LoginModal,
-    DeviceInfoPage
+    DeviceInfoPage,
+    NewsPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ import { EventInfoPage } from '../pages/event-info/event-info';
     EventInfoPage,
     LoginPage,
     LoginModal,
-    DeviceInfoPage
+    DeviceInfoPage,
+    NewsPage
   ],
   providers: [
     StatusBar,
