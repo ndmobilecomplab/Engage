@@ -1,0 +1,63 @@
+<body>
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://unpkg.com/rsvp@3.1.0/dist/rsvp.min.js"></script>
+    <script src="https://cdn.firebase.com/libs/geofire/4.1.0/geofire.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Initialize the Firebase SDK
+            firebase.initializeApp({
+                apiKey: "AIzaSyBqbkrAUK0cttecGx-uRnUA-2jbYkl_S8A",
+                authDomain: "engage-219920.firebaseapp.com",
+                databaseURL: "https://engage-219920.firebaseio.com",
+                projectId: "engage-219920",
+                storageBucket: "engage-219920.appspot.com",
+                messagingSenderId: "498276752871"
+            });
+
+            firebase.auth().signInAnonymously().catch(function(error) {
+              console.log(error.code);
+              console.log(error.message);
+            });
+            firebase.auth().onAuthStateChanged(function(user) {
+              console.log("Auth state changed.");
+              if(user) {
+                console.log("ANONYMOUS USER!");
+                console.log(user);
+
+                //Initialize dictionary that stores the data we want to populate database with
+                let postData = {"providers": ["Amazon", "Uber", "City of South Bend", "Notre Dame"],
+                                  "sites": ["amazon.com", "uber.com", "southbendin.gov", "nd.edu"],
+                                  "texts": ["Amazon to deploy new fleet of commercial delivery drones in South Bend, IN.",
+                                  "Uber rolls out new line of self-driving vehicles near you in the next month.",
+                                  "City of South Bend engaging in development project on West Michigan Ave.",
+                                  "Notre Dame researchers in the Department of Computer Science and Engineering test new drones."],
+                                };
+
+                //Build out database structure
+                firebase.database().ref('/news').set({});
+                console.log("TESTING.");
+                console.log(postData["providers"][0]);
+
+                //Upload the data to Firebase
+                for(let i = 0; i < 4; i++){
+                  console.log("For loop time!"); //This logs
+                  console.log(i);
+                  var key = firebase.database().ref("/news").push().key;
+                  firebase.database().ref("/news/" + key).update({
+                     provider: postData["providers"][i],
+  			             site: postData["sites"][i],
+                     bodyText: postData["texts"][i],
+                     postDate: new Date().toDateString(),
+                     postTime: new Date().toTimeString(),
+                     react1: 0,
+                     react2: 0
+                   });
+                   console.log("Added to db?");
+                }
+             }
+          });
+
+
+      })();
+    </script>
+</body>

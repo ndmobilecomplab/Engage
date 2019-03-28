@@ -51,7 +51,8 @@ $colors: (
   danger:     #f04141,
   light:      #BD8F79,
   dark:       #703C17,
-  twitter:    #4CB3BD //Not sure what twitter does?
+  twitter:    #4CB3BD, //Not sure what twitter does?
+  //eed:       #703C17
   //Can add base and contrast properties for the background and text colors
 );
 
@@ -128,6 +129,8 @@ $colors: (
   --ion-color-light-contrast-rgb: 0,0,0;
   --ion-color-light-shade: #a67e6a;
   --ion-color-light-tint: #c49a86;
+
+  --ion-color-feed: #B18362;
 }
 
 
