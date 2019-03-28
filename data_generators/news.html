@@ -1,3 +1,5 @@
+<!--  news.html    This script will populate Firebase with post data -->
+
 <body>
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
     <script src="https://unpkg.com/rsvp@3.1.0/dist/rsvp.min.js"></script>
@@ -40,10 +42,10 @@
 
                 //Upload the data to Firebase
                 for(let i = 0; i < 4; i++){
-                  console.log("For loop time!"); //This logs
+                  console.log("For loop time!");
                   console.log(i);
-                  var key = firebase.database().ref("/news").push().key;
-                  firebase.database().ref("/news/" + key).update({
+                  //var key = firebase.database().ref("/news").push().key;
+                  firebase.database().ref("/news/" + i).update({
                      provider: postData["providers"][i],
   			             site: postData["sites"][i],
                      bodyText: postData["texts"][i],
@@ -52,7 +54,7 @@
                      react1: 0,
                      react2: 0
                    });
-                   console.log("Added to db?");
+                   console.log("Added to db");
                 }
              }
           });
