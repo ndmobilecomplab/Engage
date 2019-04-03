@@ -43,8 +43,11 @@
                  // Specify the locations for each
                  var uavsLocation = [
                    [41.7045, -86.2329],
-                   [41.7030, -86.2391]
-                   //[41.7050, -86.2345] //Attempting to add extra marker
+                   [41.7030, -86.2391],
+                   [41.7050, -86.2345],
+                   [41.7000, -86.3345],
+                   [41.7150, -86.2645],
+                   [41.7080, -86.2995]
                  ];
 
                  // Set the initial locations
@@ -68,14 +71,23 @@
                    setInterval(function(){
                      degrees += 5;
                      degrees = degrees % 360;
-                     key = 0;
-                     loc = [...( uavsLocation[key])];
-                     console.log(loc);
-                     console.log("SOS"); //hmmm
-                     loc[1] += radius * Math.cos(degrees / 260 * 3.14);
-                     loc[0] += radius * Math.sin(degrees / 360 * 3.14);
-                     console.log(loc);
-                     geoFire.set("uav" + key, loc);
+                     var arrayLength = uavsLocation.length;
+                     for (var key = 0; key < arrayLength; key++) {
+                       loc = [...( uavsLocation[key])];
+                       console.log(loc);
+                       if (!key % 2){
+                         loc[1] -= radius*(key+1) * Math.cos(degrees / 260 * 3.14);
+                         loc[0] -= radius*(key+2) * Math.sin(degrees / 360 * 3.14);
+                       }
+                       else {
+                         loc[1] += radius*(key+1) * Math.cos(degrees / 260 * 3.14);
+                         loc[0] += radius*(key-2) * Math.sin(degrees / 360 * 3.14);
+                       }
+
+                       console.log(loc);
+                       geoFire.set("uav" + key, loc);
+                     }
+
                    }, 1000);
                  }).then(function() {
                  }).catch(function(error) {
