@@ -24,24 +24,22 @@ export class NewsPage {
 
   key: string;
 
-  posts$: Observable<Post>;
+  /* Observable tracking changes to the selected observable */
+  post$: Observable<Post>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams/*, private firebase: FirebaseDatabaseProvider */) {
-    /*this.key = navParams.get('posts');
-    this.posts$ = firebase.getEvent(this.key);
-    Is getEvent a Firebase method?  I can't find any documentation on it though...
-    */
+  constructor(public navCtrl: NavController, public navParams: NavParams, private firebase: FirebaseDatabaseProvider) {
+    this.key = navParams.get('post');
+    this.post$ = firebase.getPost(this.key);  
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewsPage');
     //var posts = {};
     //Creates a listener at the news part of the database
-    const postRef: firebase.database.Reference = firebase.database().ref('/news/');
+    /*const postRef: firebase.database.Reference = firebase.database().ref('/news/');
     postRef.on('value', postSnapshot => {
       this.posts$ = postSnapshot.val();
-    }); 
-
+    });*/
   }
 
 }

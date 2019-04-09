@@ -16,7 +16,7 @@ import 'rxjs/add/operator/shareReplay';
  */
 @Injectable()
 export class FirebaseDatabaseProvider {
-  
+
   /**
    * @returns A reference to the devices' geofire
    */
@@ -30,12 +30,12 @@ export class FirebaseDatabaseProvider {
   getEventsLocations(): database.Reference {
     return firebase.database().ref('/events/locations');
   }
-  
+
   /**
    * Internal tracker of whether an observable has been created for a particular device
    */
   private devices: { [key: string] : Observable<Device> } = {};
-  
+
   /**
    * Gets an observable with the most up-to-date information about the device
    * @param {string} key the id of the device
@@ -57,12 +57,12 @@ export class FirebaseDatabaseProvider {
     }
     return this.devices[key];
   }
-  
+
   /**
    * Internal tracker of whether an observable has been created for a particular organization
    */
   private organizations: { [key: string] : Observable<Organization> } = {};
-  
+
   /**
    * Gets an observable with the most up-to-date information about the organization
    * @param {string} key the id of the organization
@@ -85,11 +85,41 @@ export class FirebaseDatabaseProvider {
     return this.organizations[key];
   }
 
+
+  /* Attempting to add similar functions for getting post data */
+
+  /**
+   * Internal tracker of whether an observable has been created for a particular post
+   */
+  private posts: { [key: string] : Observable<Post> } = {};
+
+  /**
+   * Gets an observable with the most up-to-date information about the post
+   * @param {string} key Post ID
+   * @returns An observable containing the most recent information of the post
+   */
+  getPost(key: string): Observable<Post> {
+    if(!this.news[key]){
+      let generator = (observer: Observer<Post>): TeardownLogic => {
+        let callback = (value: database.DataSnapshot) => {
+          observer.next(value.val());
+        };
+        firebase.database().ref('/news/' + key).on('value', callback);
+        return () => {
+          firebase.database().ref('/news/' + key).off('value', callback);
+        };
+      };
+      let newObservable: Observable<Post> = Observable.create(generator).shareReplay(1);
+      this.news[key] = newObservable;
+    }
+    return this.news[key];
+  }
+
   /**
    * Internal tracker of whether an observable has been created for a particular event
    */
   private events: { [key: string] : Observable<Event> } = {};
-  
+
   /**
    * Gets an observable with the most up-to-date information about the event
    * @param {string} key the id of the event
@@ -113,9 +143,9 @@ export class FirebaseDatabaseProvider {
     }
     return this.events[key];
   }
-  
+
   constructor(private firebaseConfig: FirebaseConfigProvider) {
     firebaseConfig.init();
   }
-  
+
 }
