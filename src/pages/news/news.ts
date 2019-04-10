@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseAuthProvider } from '../../providers/firebase-auth/firebase-auth';
 import { FirebaseDatabaseProvider } from '../../providers/firebase-database/firebase-database';
-import * as firebase from 'Firebase'
+//import * as firebase from 'Firebase'
 import Post from '../../models/post';
 import { Observable } from 'rxjs/Observable';
 
@@ -28,8 +28,9 @@ export class NewsPage {
   post$: Observable<Post>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private firebase: FirebaseDatabaseProvider) {
-    this.key = navParams.get('post');
-    this.post$ = firebase.getPost(this.key);  
+    this.key = '0';
+    this.post$ = firebase.getPost(this.key);
+    console.log(this.post$);
   }
 
   ionViewDidLoad() {

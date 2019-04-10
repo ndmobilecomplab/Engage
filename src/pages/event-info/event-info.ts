@@ -32,15 +32,16 @@ export class EventInfoPage {
    * An observable getting the most up-to-date information about where the event is located - used for the map component
    */
   location$: Observable<ILatLng>;
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private firebase: FirebaseDatabaseProvider, private geofire: GeofireProvider) {
-    this.key = navParams.get('event');
+    this.key = navParams.get('event'); //Getting data passed from previous page
+    console.log(this.key);
     this.event$ = firebase.getEvent(this.key);
     this.owner$ = this.event$.map((event : Event) => event.owner).distinctUntilChanged().concatMap((key) => this.firebase.getOrganization(key));
     this.location$ = geofire.getEventLocation(this.key);
   }
-  
+
   ionViewDidLoad() {
   }
-  
+
 }

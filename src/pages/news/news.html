@@ -20,13 +20,22 @@
     <ion-avatar item-start>
       <img src="resources/amazonLogo.png">
     </ion-avatar>
-      <h2>Amazon</h2>
+      <dl *ngIf="post$ | async as post">
+        <h2>{{post.provider}}</h2>
+      </dl>
       <p>March 22, 2019</p>
     </ion-item>
 
     <img src="resources/amazonDrones.jpg">
     <ion-card-content>
-      <p>THIS SHOULD WORK: {{posts$}} </p>
+      <p>THIS SHOULD WORK: </p>
+        <dl *ngIf="post$ | async as post">
+          {{post | json}}
+          <dt>Name:</dt>
+          <dd>{{post.provider}}</dd>
+          <dt>Text:</dt>
+          <dd>{{post.bodyText}}</dd>
+        </dl>
     </ion-card-content>
 
     <ion-row>

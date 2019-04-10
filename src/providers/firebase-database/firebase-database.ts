@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { Event } from '../../models/event';
 import { Observer } from 'rxjs/Observer';
 import { TeardownLogic } from 'rxjs/Subscription';
+import Post from '../../models/post';
 import 'rxjs/add/operator/shareReplay';
 
 /**
@@ -91,7 +92,7 @@ export class FirebaseDatabaseProvider {
   /**
    * Internal tracker of whether an observable has been created for a particular post
    */
-  private posts: { [key: string] : Observable<Post> } = {};
+  private news: { [key: string] : Observable<Post> } = {};
 
   /**
    * Gets an observable with the most up-to-date information about the post
