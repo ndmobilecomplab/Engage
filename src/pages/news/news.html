@@ -14,28 +14,22 @@
 
 
 <ion-content padding class="ion-content">
-<h1>Greetings!</h1>
-<ion-card>
-  <ion-item>
+
+  <ion-card *ngIf="post$ | async as post">
+    <ion-item>
     <ion-avatar item-start>
       <img src="resources/amazonLogo.png">
     </ion-avatar>
-      <dl *ngIf="post$ | async as post">
+
         <h2>{{post.provider}}</h2>
-      </dl>
-      <p>March 22, 2019</p>
+        <p>{{post.postDate}}</p>
     </ion-item>
 
     <img src="resources/amazonDrones.jpg">
     <ion-card-content>
-      <p>THIS SHOULD WORK: </p>
-        <dl *ngIf="post$ | async as post">
-          {{post | json}}
-          <dt>Name:</dt>
-          <dd>{{post.provider}}</dd>
-          <dt>Text:</dt>
-          <dd>{{post.bodyText}}</dd>
-        </dl>
+      <dl *ngIf="post$ | async as post">
+        <p>{{post.bodyText}}</p>
+      </dl>
     </ion-card-content>
 
     <ion-row>
@@ -51,5 +45,38 @@
       </ion-col>
     </ion-row>
 
-</ion-card>
+  </ion-card>
+
+  <ion-card *ngIf="post$ | async as post">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="resources/amazonLogo.png">
+      </ion-avatar>
+
+          <h2>{{post.provider}}</h2>
+          <p>{{post.postDate}}</p>
+      </ion-item>
+
+      <img src="resources/uber2.jpg">
+      <ion-card-content>
+        <dl *ngIf="post$ | async as post">
+          <p>{{post.bodyText}}</p>
+        </dl>
+      </ion-card-content>
+
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-start clear small>
+            <div>React: </div>
+            <ion-icon name="happy"></ion-icon>
+            <ion-icon name="sad"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col>
+          <ion-note>Read more...</ion-note>
+        </ion-col>
+      </ion-row>
+
+  </ion-card>
+
 </ion-content>

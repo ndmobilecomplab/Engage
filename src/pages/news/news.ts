@@ -28,9 +28,10 @@ export class NewsPage {
   post$: Observable<Post>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private firebase: FirebaseDatabaseProvider) {
-    this.key = '0';
-    this.post$ = firebase.getPost(this.key);
-    console.log(this.post$);
+
+    console.log(firebase.getPosts());
+
+
   }
 
   ionViewDidLoad() {

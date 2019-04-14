@@ -100,6 +100,7 @@ export class FirebaseDatabaseProvider {
    * @returns An observable containing the most recent information of the post
    */
   getPost(key: string): Observable<Post> {
+    console.log(this.news);
     if(!this.news[key]){
       let generator = (observer: Observer<Post>): TeardownLogic => {
         let callback = (value: database.DataSnapshot) => {
@@ -113,7 +114,17 @@ export class FirebaseDatabaseProvider {
       let newObservable: Observable<Post> = Observable.create(generator).shareReplay(1);
       this.news[key] = newObservable;
     }
-    return this.news[key];
+
+      return this.news[key];
+  }
+
+  /**
+   * Gets an observable with all the posts
+   * @param {string} key Post ID
+   * @returns All the posts
+   */
+  getPosts(): database.Reference {
+    return firebase.database().ref('/news');
   }
 
   /**
