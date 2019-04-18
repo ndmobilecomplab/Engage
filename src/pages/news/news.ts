@@ -29,7 +29,7 @@ export class NewsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private firebase: FirebaseDatabaseProvider) {
 
-    console.log(firebase.getPosts());
+    //console.log(firebase.getPosts());
 
 
   }

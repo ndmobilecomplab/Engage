@@ -99,6 +99,10 @@ export class FirebaseDatabaseProvider {
    * @param {string} key Post ID
    * @returns An observable containing the most recent information of the post
    */
+   /* IDEA: Do we even need this function?  Maybe have it take in a specific
+   * post ID and return the post?  Could call in the getPosts function?
+   */
+
   getPost(key: string): Observable<Post> {
     console.log(this.news);
     if(!this.news[key]){
@@ -123,9 +127,14 @@ export class FirebaseDatabaseProvider {
    * @param {string} key Post ID
    * @returns All the posts
    */
-  getPosts(): database.Reference {
-    return firebase.database().ref('/news');
-  }
+
+   /* This method will ultimately take in a user ID and pull all of the posts that
+   *  that user is subscribed to by looking at their tags.  Combine various query
+   * techniques to do this.
+   */
+  /*getPosts(): database.Reference {
+    //return newsRef = firebase.database().ref('/news');
+  }*/
 
   /**
    * Internal tracker of whether an observable has been created for a particular event
