@@ -39,8 +39,6 @@ export class LoginModal {
       console.log("Login form status VALID!")
       let result: Observable<firebase.auth.UserCredential>;
       if(this.needAccount){
-        //Added first line for testing
-        //this.firebaseAuth.createUserWithEmailAndPassword(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
         console.log("Attempting to create a new account.")
         result = this.firebaseAuth.newAccount(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
       } else {
@@ -54,7 +52,6 @@ export class LoginModal {
         //Added logging to see what is happening
         console.log("Done, you are logged in!")
       }, (error) => {
-        //Added logging to see what is happening
         console.log("You have problems...")
         this.toastCtrl.create({
           message: error,
