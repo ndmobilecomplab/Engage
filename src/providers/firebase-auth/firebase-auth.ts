@@ -124,26 +124,32 @@ export class FirebaseAuthProvider {
    */
   newAccount(email: string, password: string): Observable<firebase.auth.UserCredential> {
 
-    /* Add the user's data to the firebase */
-    var database = firebase.database();
-    //FIXME: Is this how you get the user ID?
-    //var userId = firebase.auth().currentUser.uid;
-    function writeUserData(userId, email, password) {
-      firebase.database().ref('/users/' + userId).set({
-          email: email,
-          password: password
-        });
-        console.log(userId);
-    }
-
     let observer: Subject<firebase.auth.UserCredential> = new Subject();
     // TODO also consider whether to use the subject
     firebase.auth().createUserWithEmailAndPassword(email, password).then((result) =>{
       observer.next(result);
       observer.complete();
+
+      /* Add the user's data to the firebase */
+      var database = firebase.database();
+      //FIXME: Is this how you get the user ID?
+      var userId = result;
+      console.log(userId.user.uid);
+      var key = 1;
+
+        firebase.database().ref('/users/' + userId.user.uid + '/login-info').set({
+            email: email,
+            password: password
+          }).catch((error) => {
+            observer.error(FirebaseAuthProvider.convertErrorCode(error));
+            console.log(error);
+            console.log("PROBLEMS!");
+          });
     }).catch((error) => {
       observer.error(FirebaseAuthProvider.convertErrorCode(error));
+      console.log(error);
     });
+
     return observer.asObservable();
   }
 
