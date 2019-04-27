@@ -44,8 +44,8 @@
                 for(let i = 0; i < 4; i++){
                   console.log("For loop time!");
                   console.log(i);
-                  //var key = firebase.database().ref("/news").push().key;
-                  firebase.database().ref("/news/" + i).update({
+                  var key = firebase.database().ref("/news").push().key; //Generates a random key 
+                  firebase.database().ref("/news/" + key).update({
                      provider: postData["providers"][i],
   			             site: postData["sites"][i],
                      bodyText: postData["texts"][i],

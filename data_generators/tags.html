@@ -1,0 +1,119 @@
+<!--  tags.html    This script will populate Firebase with tags and their IDs -->
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://unpkg.com/rsvp@3.1.0/dist/rsvp.min.js"></script>
+    <script src="https://cdn.firebase.com/libs/geofire/4.1.0/geofire.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Initialize the Firebase SDK
+            firebase.initializeApp({
+                apiKey: "AIzaSyBqbkrAUK0cttecGx-uRnUA-2jbYkl_S8A",
+                authDomain: "engage-219920.firebaseapp.com",
+                databaseURL: "https://engage-219920.firebaseio.com",
+                projectId: "engage-219920",
+                storageBucket: "engage-219920.appspot.com",
+                messagingSenderId: "498276752871"
+            });
+
+            firebase.auth().signInAnonymously().catch(function(error) {
+              console.log(error.code);
+              console.log(error.message);
+            });
+            firebase.auth().onAuthStateChanged(function(user) {
+              console.log("Auth state changed.");
+              if(user) {
+                console.log("ANONYMOUS USER!");
+                console.log(user);
+
+                //Initialize array of tags we want to include in Firebase
+                let tagArray = ["Amazon", "drones", "South Bend", "Notre Dame", "UAVs", "Google", "Uber"];
+
+                //Stores mapping of tags to post IDs
+                let postArr= [["-Ld5lvcheCoSXpkxIuyJ"], ["-Ld5lvcheCoSXpkxIuyJ"],
+                ["-Ld5lvcheCoSXpkxIuyJ", "-Ld5lvci3GaYpzqu8vzb", "-Ld5lvcj_ECHxemjvkPr"],
+                ["-Ld5lvcj_ECHxemjvkPr"], ["-Ld5lvcheCoSXpkxIuyJ"], ["0"], ["-Ld5lvci3GaYpzqu8vza"]]
+
+                let allPost = ["-Ld5lvcheCoSXpkxIuyJ", "-Ld5lvci3GaYpzqu8vza", "-Ld5lvci3GaYpzqu8vzb", "-Ld5lvcj_ECHxemjvkPr"]
+
+                //Stores the user IDs
+                let userArray = ["KV9u3YHpxXZMdYmulYSRsbmLWkf1", "NyykdOuLtleuwldNbevmhnQoqjw1", "uuYidnIYjvh6pDpTflAqrjZ92So2"];
+
+
+                //Zero out old data from under each news item (from previous run of this script)
+                for (let i = 0; i < allPost.length; i++) {
+                  firebase.database().ref("/news/" + allPost[i] + "/tags").set({});
+                }
+
+                //Zero out old data from under each user (from previous run of this script)
+                for (let i = 0; i < userArray.length; i++) {
+                  firebase.database().ref("/users/" + userArray[i] + "/tags").set({});
+                }
+
+                //Build out database structure
+                firebase.database().ref('/tags').set({});
+                console.log(tagArray[0]);
+
+                //Upload the data to Firebase
+                for(let i = 0; i < tagArray.length; i++){
+                  console.log(i);
+                  var key = firebase.database().ref("/tags").push().key; //Generates a random key
+
+                   firebase.database().ref("/tags/" + key).set({
+                     name: tagArray[i] //Stores the human readable name of the tag
+                   });
+
+                  //Store appropriate post IDs under each tag
+                   for (let j = 0; j < postArr[i].length; j++){
+                     firebase.database().ref("/tags/" + key + "/posts").update({
+                       [postArr[i][j]]: 0
+                     });
+
+                    //Store appropriate tag ID under each post
+                     if (postArr[i][j] != 0) {
+                       firebase.database().ref("/news/" + [postArr[i][j]] + "/tags").update({
+                         [key]: 0
+                       });
+                    }
+
+                  }
+
+                  //Stores appropriate user IDs under each tag -> these are hardcoded for now
+                  if (i % 2) {
+                    firebase.database().ref("/tags/" + key + "/users").update({
+                      [userArray[0]]: 0,
+                      [userArray[2]]: 0
+                    });
+
+                    //Stores tag ID under appropriate user IDs
+                    firebase.database().ref("/users/" + userArray[0] + "/tags").update({
+                      [key]: 0
+                    });
+                    firebase.database().ref("/users/" + userArray[2] + "/tags").update({
+                      [key]: 0
+                    });
+                 }
+                 else {
+                   firebase.database().ref("/tags/" + key + "/users").update({
+                     [userArray[1]]: 0,
+                     [userArray[0]]: 0
+                   });
+                   //TODO: Store tag ID under each user
+                   //Stores tag ID under appropriate user IDs
+                   firebase.database().ref("/users/" + userArray[1] + "/tags").update({
+                     [key]: 0
+                   });
+                   firebase.database().ref("/users/" + userArray[0] + "/tags").update({
+                     [key]: 0
+                   });
+                 }
+                  //Store tag ID under the
+                   console.log("Added to db");
+                }
+             }
+          });
+
+
+      })();
+    </script>
+</body>

@@ -132,14 +132,12 @@ export class FirebaseAuthProvider {
 
       /* Add the user's data to the firebase */
       var database = firebase.database();
-      //FIXME: Is this how you get the user ID?
       var userId = result;
       console.log(userId.user.uid);
       var key = 1;
 
-        firebase.database().ref('/users/' + userId.user.uid + '/login-info').set({
-            email: email,
-            password: password
+        firebase.database().ref('/users/' + userId.user.uid + '/tags').set({
+            temp: 0
           }).catch((error) => {
             observer.error(FirebaseAuthProvider.convertErrorCode(error));
             console.log(error);
