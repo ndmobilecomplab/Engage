@@ -16,7 +16,7 @@ import { NewsPage } from '../pages/news/news';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;  //Should be HomePage, but let's test with new NewsPage
+  rootPage: any = HomePage;  //Can substitute with NewsPage to keep working on News Feed
 
   pages: Array<{title: string, component: any}>;
 

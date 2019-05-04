@@ -129,12 +129,31 @@ export class FirebaseDatabaseProvider {
    */
 
    /* This method will ultimately take in a user ID and pull all of the posts that
-   *  that user is subscribed to by looking at their tags.  Combine various query
-   * techniques to do this.
+   *  that user is subscribed to by looking at their tags.
    */
-  /*getPosts(): database.Reference {
-    //return newsRef = firebase.database().ref('/news');
-  }*/
+
+  getPosts(key: string) {
+    var myPosts = new Set(); //This set will store the unique post IDs that a user wants to see
+    var userRef = firebase.database().ref("/users/" + key + "/tags/").once('value').then(function(tags) {
+      tags.forEach(function(tag){ //For each tag the input user is subscribed to...
+        var tagsRef = firebase.database().ref("/tags/" + tag.key + "/posts/").once('value').then(function(posts) {
+          posts.forEach(function(post){
+            myPosts.add(post.key); //Store post IDs associated with that tag ID
+          });
+        });
+      });
+    });
+
+    return myPosts;
+
+    //TODO: figure out a way to iterate through the myPosts set
+    //needs to be a way to make it sequential
+
+    //TODO: for each postID in myPosts, create a new reference to /news/ + postID
+    //Return the data from this reference as an Observable
+    //Display in HTML for NewsPage
+
+}
 
   /**
    * Internal tracker of whether an observable has been created for a particular event
