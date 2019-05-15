@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "498276752871",
+    "firebase_url": "https://engage-219920.firebaseio.com",
+    "project_id": "engage-219920",
+    "storage_bucket": "engage-219920.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498276752871:android:ef123148cf5c7146",
+        "android_client_info": {
+          "package_name": "cse.nd.engage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498276752871-p6me8bc5g7qj0m6pe7iicabpujgs3i8l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9QgI4tLOe6pjKtIabo2jh11QJH2NXbF4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
