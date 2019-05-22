@@ -27,28 +27,28 @@ export class GeofireProvider {
    * The geofire initialized around devices
    */
   private devicesGeoFire: GeoFire;
-  
+
   /**
    * The geofire initialized around events
    */
   private eventsGeofire: GeoFire;
-  
+
   constructor(private firebaseDatabase: FirebaseDatabaseProvider) {
     this.devicesGeoFire = new GeoFire(firebaseDatabase.getDevicesLocations());
     this.eventsGeofire = new GeoFire(firebaseDatabase.getEventsLocations());
   }
-  
+
   /**
    * Gets nearby events based on the given radius
    * @param defaultRadius the radius to start pulling events for immediately
    * @param radius an observable that updates the query radius
    */
-  getNearbyEvents(defaultRadius: number, radius: Observable<number>): Observable<{[id: string]: Event}> {    
+  getNearbyEvents(defaultRadius: number, radius: Observable<number>): Observable<{[id: string]: Event}> {
     let generator = (observer: Observer<any>) => {
       let onKeyEnteredRegistration: GeoCallbackRegistration, onKeyExitedRegistration: GeoCallbackRegistration;
-      
+
       let subscriptions: {[id: string]: Subscription} = {};
-      
+
       let query: GeoQuery;
       //TODO if location is changing, use a combineLatest
       //eventually use something like flatMap() or .scan() to merge observables instead of current approach
@@ -67,7 +67,7 @@ export class GeofireProvider {
         onKeyEnteredRegistration = query.on("key_entered", (key, location, distance) => {
           subscriptions[key] = this.firebaseDatabase.getEvent(key).subscribe(event => observer.next([key, event]));
         });
-        
+
         onKeyExitedRegistration = query.on("key_exited", (key, location, distance) => {
           subscriptions[key].unsubscribe();
           delete subscriptions[key];
@@ -76,7 +76,7 @@ export class GeofireProvider {
       });
       return () => {
         if(onKeyEnteredRegistration) onKeyEnteredRegistration.cancel();
-        
+
         if(onKeyExitedRegistration) onKeyExitedRegistration.cancel();
       }
     }
@@ -89,18 +89,18 @@ export class GeofireProvider {
       return acc;
     }, {});
   }
-  
+
   /**
    * Gets nearby events based on the given radius, including their distance from the user's position
    * @param defaultRadius the radius to start pulling events for immediately
    * @param radius an observable that updates the query radius
    */
-  getNearbyGeoEvents(defaultRadius: number, radius: Observable<number>): Observable<{[id: string]: GeoItem<Event>}> {    
+  getNearbyGeoEvents(defaultRadius: number, radius: Observable<number>): Observable<{[id: string]: GeoItem<Event>}> {
     let generator = (observer: Observer<any>) => {
       let onKeyEnteredRegistration: GeoCallbackRegistration, onKeyMovedRegistration: GeoCallbackRegistration, onKeyExitedRegistration: GeoCallbackRegistration;
-      
+
       let subscriptions: {[id: string]: Subscription} = {};
-      
+
       let query: GeoQuery;
       //TODO if location is changing, use a combineLatest
       //eventually use something like flatMap() or .scan() to merge observables instead of current approach
@@ -124,7 +124,7 @@ export class GeofireProvider {
           subscriptions[key].unsubscribe();
           subscriptions[key] = this.firebaseDatabase.getEvent(key).subscribe(event => observer.next([key, [event, location, distance]]));
         });
-        
+
         onKeyExitedRegistration = query.on("key_exited", (key, location, distance) => {
           subscriptions[key].unsubscribe();
           delete subscriptions[key];
@@ -135,7 +135,7 @@ export class GeofireProvider {
         if(onKeyEnteredRegistration) onKeyEnteredRegistration.cancel();
 
         if(onKeyMovedRegistration) onKeyMovedRegistration.cancel();
-        
+
         if(onKeyExitedRegistration) onKeyExitedRegistration.cancel();
       }
     }
@@ -148,7 +148,7 @@ export class GeofireProvider {
       return acc;
     }, {});
   }
-  
+
   /**
    * Initializes the map to pull the markers from Geofire
    * @param map the map to put the markers onto
@@ -158,11 +158,20 @@ export class GeofireProvider {
   initializeMap(map: GoogleMap, onClickGenerator: (key) => (any) => any){
     let query: GeoQuery;
     let markers: Map<String, Promise<Marker>> = new Map();
+    //Array of icon images
+    var images = ['../../resources/planeNew1.png', '../../resources/planeNew2.png'];
     map.addEventListener(GoogleMapsEvent.MAP_READY).subscribe(() => {
       query = this.devicesGeoFire.query(this.generateQuery(map));
       var onKeyEnteredRegistration = query.on("key_entered", (key, location, distance) => {
+        
+        //Determine which icon to choose based on odd or even uav number
+        var keyLength = key.length;
+        var lastChar = key.charAt(keyLength - 1);
+        var theImage = !(parseInt(lastChar) % 2)? images[0] : images[1];
+
         let marker = map.addMarker({
-          position: GeofireProvider.convertToObj(location)
+          position: GeofireProvider.convertToObj(location),
+          icon: theImage
         }).then((marker) => {
           marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(onClickGenerator(key));
           return marker;
@@ -172,7 +181,7 @@ export class GeofireProvider {
         //add marker at position
         //add it to dict based on key
       });
-      
+
       var onKeyExitedRegistration = query.on("key_exited", (key, location, distance) => {
         //remove marker at index
         markers[key].then((marker: Marker) => {
@@ -181,7 +190,7 @@ export class GeofireProvider {
         markers.delete(key);
         return null;
       });
-      
+
       var onKeyMovedRegistration = query.on("key_moved", (key, location, distance) => {
         //update marker at index
         markers[key] = markers[key].then((marker: Marker) => {
@@ -211,7 +220,7 @@ export class GeofireProvider {
   getEventLocation(key: string): Observable<ILatLng> {
     return Observable.interval(2000).switchMap(() => this.eventsGeofire.get(key).then(GeofireProvider.convertToObj)).distinctUntilChanged(GeofireProvider.locationEquals);
   }
-  
+
   /**
    * Converts a location between tuple and object form
    * @param {[number, number]} location location as a tuple
@@ -222,7 +231,7 @@ export class GeofireProvider {
       lat: location[0]
     };
   }
-  
+
   /**
    * Converts a location between object and tuple form
    * @param {ILatLng} location location as an object
@@ -230,7 +239,7 @@ export class GeofireProvider {
   private static convertToTuple(location: ILatLng): [number, number] {
     return [location.lat, location.lng];
   }
-  
+
   /**
    * Generates the query based on the current map window
    * @param {GoogleMap} map the map to generate the query for

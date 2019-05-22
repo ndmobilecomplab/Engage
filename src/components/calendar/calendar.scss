@@ -1,8 +1,8 @@
 
-$month-header: #427EE8;
+$month-header: #226970;  //#427EE8; Testing theme colors
 $day-header: #488aff;
 
-$selected-date: #ef473a;
+$selected-date: #bd7b4c; //#ef473a;
 
 $other-month: #444444;
 
@@ -37,7 +37,7 @@ $seventh: 14.285714285714286%;
   color: #FFFFFF;
 }
 .grid {
-  padding: 0;
+  padding: 15; //0;
 }
 .col:last-child {
   border-right: none;

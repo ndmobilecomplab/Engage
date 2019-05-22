@@ -22,7 +22,7 @@ export class LoginModal {
    * Form group containing the username, password, and potentially confirm password
    */
   private loginForm : FormGroup;
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private formBuilder: FormBuilder, private firebaseAuth: FirebaseAuthProvider, private toastCtrl: ToastController) {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -30,21 +30,29 @@ export class LoginModal {
       passwordCheck: ['', this.checkPasswords]
     });
   }
-  
+
   /**
    * Submits the login form, logs in or signs up the user, and handles response appropiately
    */
   submit(): void {
     if(this.loginForm.status == "VALID"){
+      console.log("Login form status VALID!")
       let result: Observable<firebase.auth.UserCredential>;
       if(this.needAccount){
+        console.log("Attempting to create a new account.")
         result = this.firebaseAuth.newAccount(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
       } else {
+        //Added first line for testing
+        //firebase.auth().signInWithEmailAndPassword(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
+        console.log("Attempting to log in.")
         result = this.firebaseAuth.signInWithCreds(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
       }
       result.subscribe((result) =>{
         this.navCtrl.pop();
+        //Added logging to see what is happening
+        console.log("Done, you are logged in!")
       }, (error) => {
+        console.log("You have problems...")
         this.toastCtrl.create({
           message: error,
           duration: 2000
@@ -52,7 +60,7 @@ export class LoginModal {
       });
     }
   }
-  
+
   /**
    * Function that checks whether the confirm password field is in sync with the password field - given whether the user is loggin in or signing up
    * @returns an object with the mismatch flag if out of sync, otherwise nothing
@@ -63,19 +71,33 @@ export class LoginModal {
     }
     return;
   }
-  
+
   /**
    * UI triggered action that closes the modal
    */
   private closeModal(){
     this.viewCtrl.dismiss();
   }
-  
+
   /**
    * UI driven toggle between signing in and signing up
    */
   private toggle(){
     this.needAccount = !this.needAccount;
   }
-  
+
+  /**
+  * Function that toggles visibility of password -> work in progress...
+  * not right yet
+  */
+  private showHide(){
+    console.log("Hide the password!")
+    /**if (this.loginForm.controls.password.value.type == 'text') {
+      this.loginForm.controls.password.value.type = 'password'
+    }
+    else {
+      this.loginForm.controls.password.value.type = 'text'
+    } **/
+  }
+
 }

@@ -7,6 +7,8 @@ import { HomePage } from '../pages/home/home';
 import { Environment } from '@ionic-native/google-maps';
 import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth';
 import { EventsPage } from '../pages/events/events';
+import { NewsPage } from '../pages/news/news';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -14,7 +16,7 @@ import { EventsPage } from '../pages/events/events';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = HomePage;  //Can substitute with NewsPage to keep working on News Feed
 
   pages: Array<{title: string, component: any}>;
 
@@ -23,8 +25,9 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Events', component: EventsPage }
+      { title: 'Map', component: HomePage },
+      { title: 'Events', component: EventsPage },
+      { title: 'News',  component: NewsPage }
     ];
 
   }

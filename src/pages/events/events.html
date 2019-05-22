@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -34,7 +34,7 @@
     No events near you.
   </span>
   <div *ngIf="mapped"> <!-- need an else -->
-    <calendar *ngIf="view == 'month'" (select)="selectedDate($event)" [events]="mapped | async"></calendar>
+    <calendar color= "primary" *ngIf="view == 'month'" (select)="selectedDate($event)" [events]="mapped | async"></calendar>
   </div>
   <div *ngIf="sorted"> <!-- need an else -->
     <div *ngIf="view == 'agenda'">

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar hideBackButton="true">
+  <ion-navbar color="primary" hideBackButton="true">
     <ion-title>Login</ion-title>
     <ion-buttons end>
       <button ion-button (click)="closeModal()">Close</button>
@@ -24,10 +24,10 @@
         <ion-label floating primary>Confirm Password</ion-label>
         <ion-input type="password" [formControl]="loginForm.controls['passwordCheck']"></ion-input>
         <ion-icon name="eye" item-right (click)="showHide()"></ion-icon>
-      
+
       </ion-item>
-      <button ion-button type="submit">Submit</button>
-      <button ion-button [outline]="isOutline" (click)="toggle()">{{needAccount ? 'Already have an account?' : 'Don\\'t have an account?'}}</button>
+      <button ion-button type="submit" margin=10% color="secondary">Submit</button>
+      <button ion-button [outline]="isOutline" (click)="toggle()" margin=10% color="secondary">{{needAccount ? 'Already have an account?' : 'Don\\'t have an account?'}}</button>
     </div>
   </form>
 </ion-content>
