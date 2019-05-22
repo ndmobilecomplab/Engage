@@ -29,14 +29,12 @@
     "@ionic-native/status-bar": "~4.15.0",
     "@ionic/storage": "2.2.0",
     "angularfire2": "^5.1.1",
-    "cordova-android": "7.0.0",
-    "cordova-android-play-services-gradle-release": "^2.0.0",
     "cordova-browser": "5.0.4",
     "cordova-ios": "^4.5.5",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-file": "^6.0.1",
     "cordova-plugin-file-transfer": "^1.7.1",
-    "cordova-plugin-firebase": "2.0.5",
+    "cordova-plugin-firebase": "~2.0.5",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googlemaps": "^2.5.0",
     "cordova-plugin-ionic": "^5.2.10",
@@ -52,7 +50,8 @@
     "rsvp": "^4.8.4",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26"
+    "zone.js": "0.8.26",
+    "cordova-android": "~7.1.4"
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.1.8",
@@ -77,24 +76,21 @@
         "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
         "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background."
       },
-      "cordova-android-play-services-gradle-release": {
-        "PLAY_SERVICES_VERSION": "15.0.1"
-      },
       "cordova-plugin-ionic": {
         "APP_ID": "9b3b5b4a",
         "CHANNEL_NAME": "Master",
-        "UPDATE_METHOD": "auto",
+        "UPDATE_METHOD": "none",
         "UPDATE_API": "https://api.ionicjs.com",
         "MAX_STORE": "2",
         "MIN_BACKGROUND_DURATION": "30"
       },
-      "cordova-plugin-firebase": {},
-      "cordova-plugin-geolocation": {}
+      "cordova-plugin-geolocation": {},
+      "cordova-plugin-firebase": {}
     },
     "platforms": [
-      "android",
       "ios",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }

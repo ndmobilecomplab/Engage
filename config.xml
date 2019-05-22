@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="cse.nd.engage" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="cse.nd.engage" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>engage</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -12,6 +12,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <preference name="DisableDeploy" value="true" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
@@ -80,13 +81,6 @@
         <resource-file src="GoogleService-Info.plist" />
     </platform>
     <allow-navigation href="http://192.168.0.12:8100" sessionid="625c9d81" />
-    <plugin name="cordova-plugin-firebase" spec="~2.0.5" />
-    <plugin name="cordova-android-play-services-gradle-release" spec="^2.0.0">
-        <variable name="PLAY_SERVICES_VERSION" value="15.+" />
-    </plugin>
-    <plugin name="cordova-android-firebase-gradle-release" spec="^2.0.0">
-        <variable name="FIREBASE_VERSION" value="15.+" />
-    </plugin>
     <plugin name="cordova-plugin-ionic-webview" spec="^2.2.5">
         <variable name="ANDROID_SUPPORT_ANNOTATIONS_VERSION" value="27.+" />
     </plugin>
@@ -96,7 +90,7 @@
     <plugin name="cordova-plugin-ionic" spec="~5.2.7">
         <variable name="APP_ID" value="9b3b5b4a" />
         <variable name="CHANNEL_NAME" value="Master" />
-        <variable name="UPDATE_METHOD" value="auto" />
+        <variable name="UPDATE_METHOD" value="none" />
         <variable name="UPDATE_API" value="https://api.ionicjs.com" />
         <variable name="MAX_STORE" value="2" />
         <variable name="MIN_BACKGROUND_DURATION" value="30" />
@@ -104,14 +98,14 @@
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="cordova-plugin-googlemaps" spec="^2.5.0">
-        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCCucwkM8cO069k0auR399LZqCGO9EjsT8" />
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAdUvvqpvaci_vDLJaK4huWu6LAsQzlJjA" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyDe9irLrQHFUFaAefWHyd3oXMTozzpi5C0" />
         <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="This app wants to get your location while this app runs only." />
         <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="This app wants to get your location always, even this app runs in background." />
     </plugin>
-    <plugin name="cordova-plugin-firebase" spec="2.0.5" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
-    <engine name="android" spec="7.0.0" />
+    <plugin name="cordova-plugin-firebase" spec="~2.0.5" />
     <engine name="ios" spec="^4.5.5" />
     <engine name="browser" spec="5.0.4" />
+    <engine name="android" spec="~7.1.4" />
 </widget>

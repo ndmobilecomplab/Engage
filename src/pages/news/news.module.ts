@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { NewsPage } from './news';
 
-
+/**
+ * @ignore
+ */
 @NgModule({
   declarations: [
     NewsPage,
